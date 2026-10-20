@@ -1,0 +1,115 @@
+/* ===== NARFKIT — calm professional polish layer =====
+   Dimuat terakhir di setiap halaman. Menyamakan tipografi,
+   navbar, kartu, dan tombol tanpa mengubah struktur halaman. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap');
+
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-brand: "Montserrat", var(--font-sans);
+  --accent: #e2895f;
+  --accent-hover: #cc764e;
+  --radius: 14px;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.18), 0 8px 24px -12px rgba(0,0,0,0.35);
+}
+[data-theme="light"], body.light-theme {
+  --shadow-card: 0 1px 2px rgba(60,40,30,0.06), 0 8px 24px -12px rgba(60,40,30,0.14);
+}
+
+/* ---- Tipografi ---- */
+body, button, input, textarea, select,
+body :not(code):not(pre):not(.soal-konteks):not(.code-block) {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body { line-height: 1.5; letter-spacing: -0.005em; }
+.narf, .kit { font-family: var(--font-brand) !important; letter-spacing: -0.01em; }
+h1, h2, h3 { letter-spacing: -0.02em; }
+p { font-weight: 400; }
+
+/* ---- Navbar (siswa, guru, landing) ---- */
+.navigasi-siswa, .navigation {
+  border: none !important;
+  border-bottom: 1px solid rgba(var(--border-rgb, 77,59,56), 0.9) !important;
+  border-radius: 0 !important;
+  height: 68px !important;
+  padding: 0 32px !important;
+  background: color-mix(in srgb, var(--bg-primary, #191615) 88%, transparent) !important;
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+}
+.navigation { background: transparent !important; }
+.narf, .kit { font-size: 24px !important; }
+.menu { gap: 4px; }
+.menu-item {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em;
+  padding: 8px 14px !important;
+  border-radius: 8px;
+  transition: color .2s, background-color .2s;
+}
+.menu-item:hover { background: rgba(var(--fg-rgb, 255,255,255), 0.05); }
+.menu-item.active { font-weight: 600 !important; }
+.menu-item.active::after {
+  height: 2px !important;
+  bottom: -14px !important;
+  background: var(--accent) !important;
+}
+.nav-right svg { width: 30px !important; height: 30px !important; opacity: .9; }
+.nav-right svg:hover { opacity: 1; transform: none !important; }
+.theme-toggle { width: 34px; height: 34px; border-width: 1px !important; }
+.theme-toggle:hover { transform: none !important; border-color: var(--accent) !important; }
+
+/* ---- Kartu & panel ---- */
+.soal-card, .stat-card, .hasil-card, .kursus-card, .kelas-card, .modul-card,
+.ringkasan-card, .lampiran-card, .hw-card, .panel, .antrean-panel, .detail-panel,
+.chat-container, .container-login, .jurnal-box, .submission-box,
+.aktivitas-belajar, .materi-teks-container {
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-card);
+}
+.stat-card, .kursus-card, .kelas-card, .modul-card, .ringkasan-card {
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.kursus-card:hover, .kelas-card:hover, .modul-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(226,137,95,0.45) !important;
+}
+
+/* ---- Tombol & input ---- */
+button, .btn, [class^="btn-"], [class*=" btn-"] {
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s;
+}
+input, textarea, select { font-size: 14px; }
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(226,137,95,0.18);
+}
+:focus-visible { outline: 2px solid rgba(226,137,95,0.6); outline-offset: 2px; }
+
+/* ---- Landing page ---- */
+.frame-12, .frame-13 { border-radius: 8px !important; padding: 8px 18px !important; }
+.frame-13 { background: var(--accent) !important; }
+.frame-13:hover { background: var(--accent-hover) !important; }
+.nav-masuk, .nav-daftar { font-size: 14px !important; font-weight: 600 !important; letter-spacing: 0.04em; }
+.mulai-eksplorasi-dunia, .iot { font-size: clamp(36px, 5.5vw, 60px) !important; letter-spacing: -0.03em; line-height: 1.1; }
+.belajar-mikrokontroler-dan-io-t-menyenangkan {
+  font-size: 18px !important; font-weight: 400 !important;
+  color: rgba(255,255,255,0.7) !important; line-height: 1.6;
+}
+.lp-button { width: 240px !important; height: 54px !important; padding: 0 !important; margin-top: 12px; }
+.lp-button .rectangle-8 {
+  width: 240px !important; height: 54px !important; border-radius: 12px !important;
+  background: var(--accent) !important; border-color: var(--accent) !important;
+}
+.lp-button:hover .rectangle-8 { background: var(--accent-hover) !important; }
+.mulai-belajar { font-size: 17px !important; color: #fff !important; letter-spacing: 0.02em; }
+._2026-narfkit-all-rights-reserved, .copyright { font-size: 13px !important; font-weight: 400 !important; opacity: .7; }
+
+/* ---- Ikon melayang ---- */
+.chat-icon:hover { transform: translateY(-2px) !important; }

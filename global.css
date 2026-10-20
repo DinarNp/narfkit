@@ -2,28 +2,28 @@
 
 /* ===== THEME VARIABLES ===== */
 :root {
-  --bg-primary: #1a1313;
+  --bg-primary: #191615;
   --fg-rgb: 255,255,255;
   --fg-solid: #ffffff;
-  --highlight-rgb: 255,251,151;
-  --highlight-solid: #fff6b5;
-  --muted-rose: #dda39e;
-  --muted-rose-rgb: 221,163,158;
-  --border-color: #7a4b47;
-  --border-rgb: 122,75,71;
+  --highlight-rgb: 239,227,194;
+  --highlight-solid: #efe3c2;
+  --muted-rose: #c4a49d;
+  --muted-rose-rgb: 196,164,157;
+  --border-color: #4d3b38;
+  --border-rgb: 77,59,56;
   --card-rgb: 188,189,190;
 }
 
 [data-theme="light"] {
-  --bg-primary: #fbf1e7;
+  --bg-primary: #faf5f0;
   --fg-rgb: 41,27,23;
   --fg-solid: #291b17;
-  --highlight-rgb: 168,74,20;
-  --highlight-solid: #a84a14;
+  --highlight-rgb: 154,85,48;
+  --highlight-solid: #9a5530;
   --muted-rose: #a85c53;
   --muted-rose-rgb: 168,92,83;
-  --border-color: #e3c2b8;
-  --border-rgb: 227,194,184;
+  --border-color: #e6d5cd;
+  --border-rgb: 230,213,205;
   --card-rgb: 122,75,71;
 }
 
@@ -39,7 +39,7 @@ body, .navigasi-siswa, .soal-card, .stat-card, .aktivitas-belajar,
   width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: border-color 0.2s, transform 0.2s; flex-shrink: 0;
 }
-.theme-toggle:hover { transform: scale(1.1); border-color: #fe7f42; }
+.theme-toggle:hover { transform: scale(1.1); border-color: #e2895f; }
 .theme-toggle svg { width: 20px; height: 20px; }
 
 body {
@@ -53,7 +53,7 @@ body {
 /* ===== NAVBAR ===== */
 .navigasi-siswa {
   border-radius: 0 0 20px 20px;
-  border: 3px solid var(--border-color);
+  border: 1px solid var(--border-color);
   padding: 10px 28px;
   display: flex;
   flex-direction: row;
@@ -68,13 +68,13 @@ body {
   background: var(--bg-primary);
 }
 .narfkit { display: flex; flex-direction: row; gap: 4px; align-items: center; }
-.narf { color: #fe7f42; font-size: 28px; font-weight: 700; }
-.kit  { color: var(--highlight-solid); font-size: 28px; font-weight: 700; }
+.narf { color: #e2895f; font-size: 28px; font-weight: 600; }
+.kit  { color: var(--highlight-solid); font-size: 28px; font-weight: 600; }
 .menu { display: flex; flex-direction: row; gap: 6px; align-items: center; }
 .menu-item {
   padding: 10px 14px; cursor: pointer;
   position: relative; color: var(--muted-rose);
-  font-size: 17px; font-weight: 700;
+  font-size: 17px; font-weight: 600;
   transition: color 0.2s; text-decoration: none;
 }
 .menu-item:hover { color: var(--fg-solid); }
@@ -94,6 +94,6 @@ body {
 
 /* Footer */
 .footer { display: flex; justify-content: space-between; align-items: center; padding: 16px 30px; margin-top: auto; }
-.copyright { color: rgba(var(--fg-rgb),0.5); font-size: 13px; font-weight: 700; }
+.copyright { color: rgba(var(--fg-rgb),0.5); font-size: 13px; font-weight: 600; }
 .chat-icon { width: 48px; height: 48px; cursor: pointer; transition: transform 0.2s; }
 .chat-icon:hover { transform: scale(1.1); }

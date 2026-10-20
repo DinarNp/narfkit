@@ -29,7 +29,7 @@ body {
   color: var(--fg-solid); 
   margin-bottom: 20px; 
   font-size: 20px; 
-  font-weight: 700; 
+  font-weight: 600; 
   border-bottom: 1.5px solid var(--border-color); 
   padding-bottom: 10px; 
   display: flex; 
@@ -47,12 +47,12 @@ body {
   transition: all 0.2s; 
 }
 .modul-card:hover:not(.locked) { 
-  border-color: #fe7f42; 
+  border-color: #e2895f; 
   transform: translateY(-3px); 
-  background: rgba(254,127,66,0.05); 
+  background: rgba(226,137,95,0.05); 
 }
-.modul-card svg { width: 42px; height: 42px; color: #fe7f42; margin-bottom: 12px; }
-.modul-card p { font-size: 14px; font-weight: bold; color: var(--fg-solid); }
+.modul-card svg { width: 42px; height: 42px; color: #e2895f; margin-bottom: 12px; }
+.modul-card p { font-size: 14px; font-weight: 600; color: var(--fg-solid); }
 .modul-card.locked { 
   opacity: 0.5; 
   cursor: not-allowed; 
@@ -73,25 +73,25 @@ body {
 }
 .btn-back { 
   background: transparent; 
-  border: 1px solid #fe7f42; 
-  color: #fe7f42; 
+  border: 1px solid #e2895f; 
+  color: #e2895f; 
   padding: 8px 16px; 
   border-radius: 8px; 
   font-size: 13px; 
   cursor: pointer; 
-  font-weight: bold; 
+  font-weight: 600; 
   display: flex; 
   align-items: center; 
   gap: 8px; 
   transition: 0.2s; 
   font-family: inherit; 
 }
-.btn-back:hover { background: #fe7f42; color: #fff; }
+.btn-back:hover { background: #e2895f; color: #fff; }
 .judul-materi-aktif { 
   font-size: 18px; 
   color: var(--highlight-solid); 
-  font-weight: bold; 
-  border-left: 2px solid #fe7f42; 
+  font-weight: 600; 
+  border-left: 2px solid #e2895f; 
   padding-left: 16px; 
 }
 
@@ -126,7 +126,7 @@ body {
   line-height: 1.6; 
   font-size: 14.5px; 
 }
-.materi-teks-container h3 { color: #fe7f42; margin-bottom: 14px; font-size: 20px; }
+.materi-teks-container h3 { color: #e2895f; margin-bottom: 14px; font-size: 20px; }
 .materi-teks-container p { margin-bottom: 12px; color: rgba(var(--fg-rgb), 0.9); }
 .materi-teks-container ul { margin-left: 20px; margin-bottom: 12px; }
 
@@ -141,12 +141,12 @@ body {
   height: 100%; 
 }
 .sidebar-modul::-webkit-scrollbar { width: 4px; }
-.sidebar-modul::-webkit-scrollbar-thumb { background: #fe7f42; border-radius: 10px; }
+.sidebar-modul::-webkit-scrollbar-thumb { background: #e2895f; border-radius: 10px; }
 .sidebar-judul { 
   font-size: 14px; 
   margin-bottom: 16px; 
   color: var(--fg-solid); 
-  font-weight: 700; 
+  font-weight: 600; 
   border-bottom: 1.5px solid var(--border-color); 
   padding-bottom: 10px; 
   text-transform: uppercase; 
@@ -161,11 +161,11 @@ body {
   cursor: pointer; 
   transition: 0.2s; 
   font-size: 13px; 
-  font-weight: bold; 
+  font-weight: 600; 
   color: var(--fg-solid); 
 }
-.item-modul:hover:not(.locked) { background: rgba(254,127,66,0.1); }
-.item-modul.active { background: #fe7f42; color: #fff; border-radius: 8px; border-bottom: none; }
+.item-modul:hover:not(.locked) { background: rgba(226,137,95,0.1); }
+.item-modul.active { background: #e2895f; color: #fff; border-radius: 8px; border-bottom: none; }
 .item-modul.locked { opacity: 0.5; cursor: not-allowed; }
 .icon-list { width: 18px; height: 18px; flex-shrink: 0; }
 
@@ -178,7 +178,7 @@ body {
   transition: 0.4s ease; 
   margin-bottom: 24px; 
 }
-.area-tugas h3 { color: #fe7f42; margin-bottom: 8px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.area-tugas h3 { color: #e2895f; margin-bottom: 8px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
 .area-tugas h3 svg { width: 20px; height: 20px; }
 .tugas-desc { font-size: 13px; color: rgba(var(--fg-rgb), 0.7); margin-bottom: 16px; font-weight: 500; }
 
@@ -197,7 +197,7 @@ body {
   margin-bottom: 16px; 
   transition: 0.2s; 
 }
-.input-tugas:focus { border-color: #fe7f42; }
+.input-tugas:focus { border-color: #e2895f; }
 
 /* Kuis List */
 .soal-item { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(var(--border-rgb), 0.2); }
@@ -218,7 +218,7 @@ body {
   align-items: center; 
   gap: 12px; 
 }
-.opsi-kuis:hover { border-color: #fe7f42; background: rgba(254,127,66,0.1); }
+.opsi-kuis:hover { border-color: #e2895f; background: rgba(226,137,95,0.1); }
 .opsi-kuis.selected { border-color: var(--highlight-solid); background: rgba(var(--highlight-rgb),0.1); }
 .opsi-huruf { 
   width: 26px; 
@@ -229,19 +229,19 @@ body {
   align-items: center; 
   justify-content: center; 
   font-size: 12px; 
-  font-weight: bold; 
+  font-weight: 600; 
   color: var(--muted-rose); 
   flex-shrink: 0; 
 }
 .opsi-kuis.selected .opsi-huruf { border-color: var(--highlight-solid); color: var(--highlight-solid); background: rgba(var(--highlight-rgb),0.2); }
 
 .btn-submit-tugas { 
-  background: #fe7f42; 
+  background: #e2895f; 
   color: #fff; 
   border: none; 
   padding: 12px 24px; 
   border-radius: 10px; 
-  font-weight: bold; 
+  font-weight: 600; 
   cursor: pointer; 
   width: 100%; 
   transition: 0.2s; 
@@ -253,10 +253,10 @@ body {
   gap: 8px; 
 }
 .btn-submit-tugas:disabled { background: rgba(var(--border-rgb),0.4); color: rgba(var(--fg-rgb),0.3); cursor: not-allowed; }
-.btn-submit-tugas:hover:not(:disabled) { background: #e66a2e; }
+.btn-submit-tugas:hover:not(:disabled) { background: #cc764e; }
 
 /* ===== VIEW PROJECT AKHIR ===== */
-.project-judul { font-size: 26px; color: var(--highlight-solid); font-weight: bold; margin-bottom: 6px; }
+.project-judul { font-size: 26px; color: var(--highlight-solid); font-weight: 600; margin-bottom: 6px; }
 .project-deskripsi { color: var(--muted-rose); font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
 .project-section { 
   background: rgba(var(--card-rgb),0.04); 
@@ -265,13 +265,13 @@ body {
   padding: 24px; 
   margin-bottom: 24px; 
 }
-.project-section h3 { color: #fe7f42; font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.project-section h3 { color: #e2895f; font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .project-section h3 svg { width: 22px; height: 22px; }
 
 /* Daftar Alat & Bahan */
 .alat-bahan-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .alat-bahan-list li { display: flex; align-items: center; gap: 10px; background: rgba(var(--border-rgb), 0.1); padding: 10px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 500; }
-.alat-bahan-list li svg { color: #4dda90; width: 16px; height: 16px; }
+.alat-bahan-list li svg { color: #6dbb93; width: 16px; height: 16px; }
 
 .guide-list { list-style: none; counter-reset: step; }
 .guide-list li { 
@@ -291,15 +291,15 @@ body {
   top: 10px; 
   width: 26px; 
   height: 26px; 
-  background: rgba(254,127,66,0.15); 
-  border: 1.5px solid #fe7f42; 
+  background: rgba(226,137,95,0.15); 
+  border: 1.5px solid #e2895f; 
   border-radius: 50%; 
   display: flex; 
   align-items: center; 
   justify-content: center; 
   font-size: 12px; 
-  font-weight: bold; 
-  color: #fe7f42; 
+  font-weight: 600; 
+  color: #e2895f; 
 }
 
 /* BMC & SWOT */
@@ -314,7 +314,7 @@ body {
   display: block; 
   font-size: 11.5px; 
   color: var(--highlight-solid); 
-  font-weight: bold; 
+  font-weight: 600; 
   margin-bottom: 8px; 
   letter-spacing: 0.5px; 
   text-transform: uppercase; 
@@ -334,30 +334,30 @@ body {
 
 .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .swot-block { border-radius: 12px; padding: 16px; border: 1.5px solid; }
-.swot-block label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-.swot-block.strength { border-color: #4dda90; background: rgba(77,218,144,0.06); }
-.swot-block.strength label { color: #4dda90; }
-.swot-block.weakness { border-color: #e07070; background: rgba(224,112,112,0.06); }
-.swot-block.weakness label { color: #e07070; }
-.swot-block.opportunity { border-color: #fe7f42; background: rgba(254,127,66,0.06); }
-.swot-block.opportunity label { color: #fe7f42; }
+.swot-block label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.swot-block.strength { border-color: #6dbb93; background: rgba(109,187,147,0.06); }
+.swot-block.strength label { color: #6dbb93; }
+.swot-block.weakness { border-color: #cf7d74; background: rgba(207,125,116,0.06); }
+.swot-block.weakness label { color: #cf7d74; }
+.swot-block.opportunity { border-color: #e2895f; background: rgba(226,137,95,0.06); }
+.swot-block.opportunity label { color: #e2895f; }
 .swot-block.threat { border-color: var(--muted-rose); background: rgba(var(--muted-rose-rgb),0.06); }
 .swot-block.threat label { color: var(--muted-rose); }
 
 /* Tombol Submit Tambahan */
-.btn-buka-simulasi { background: #fe7f42; color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; font-family: inherit; }
-.btn-buka-simulasi:hover { background: #e66a2e; }
+.btn-buka-simulasi { background: #e2895f; color: #fff; border: none; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; font-family: inherit; }
+.btn-buka-simulasi:hover { background: #cc764e; }
 
 .submission-box { display: flex; flex-direction: column; gap: 12px; }
 .submission-row { display: flex; align-items: center; justify-content: space-between; background: rgba(var(--border-rgb),0.08); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 16px 20px; }
 .submission-row span { font-size: 14px; color: var(--fg-solid); font-weight: 600; display: flex; align-items: center; gap: 10px; }
-.btn-upload-link { background: transparent; border: 1.5px solid #fe7f42; color: #fe7f42; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; text-decoration: none; transition: 0.2s; }
-.btn-upload-link:hover { background: #fe7f42; color: #fff; }
-.btn-simpan-project { background: transparent; color: #fe7f42; border: 1.5px solid #fe7f42; padding: 14px 24px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-family: inherit; margin-top: 16px; transition: 0.2s; }
-.btn-simpan-project:hover { background: rgba(254,127,66,0.1); }
-.save-status { text-align: center; font-size: 12px; color: #4dda90; margin-top: 12px; min-height: 16px; font-weight: 700; }
+.btn-upload-link { background: transparent; border: 1.5px solid #e2895f; color: #e2895f; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.2s; }
+.btn-upload-link:hover { background: #e2895f; color: #fff; }
+.btn-simpan-project { background: transparent; color: #e2895f; border: 1.5px solid #e2895f; padding: 14px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; width: 100%; font-family: inherit; margin-top: 16px; transition: 0.2s; }
+.btn-simpan-project:hover { background: rgba(226,137,95,0.1); }
+.save-status { text-align: center; font-size: 12px; color: #6dbb93; margin-top: 12px; min-height: 16px; font-weight: 600; }
 
-.warning-box { background: rgba(224,112,112,0.1); border: 1.5px solid #e07070; color: #e07070; padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center; font-weight: bold; display: none; }
+.warning-box { background: rgba(207,125,116,0.1); border: 1.5px solid #cf7d74; color: #cf7d74; padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center; font-weight: 600; display: none; }
 
 /* Styling untuk Input Link Submission */
 .submission-row.input-mode {
@@ -381,7 +381,7 @@ body {
 }
 
 .input-link-submit:focus {
-  border-color: #fe7f42;
+  border-color: #e2895f;
 }
 
 .input-link-submit::placeholder {
