@@ -613,6 +613,7 @@
        PAGE 2: LOGIN
   ══════════════════════════════ -->
   <div class="page" id="page-login">
+    <button type="button" class="auth-back" onclick="showPage('page-landing')">&larr; Kembali ke beranda</button>
 
     <div class="login-heading">
       <div class="selamat-datang-kembali">Selamat Datang Kembali!</div>
@@ -634,11 +635,16 @@
         <div class="label-text">Password</div>
         <div class="password-wrapper">
           <input class="input-field" type="password" id="login-password" placeholder="Masukkan password">
-          <button class="toggle-pw" onclick="togglePassword('login-password', this)" type="button">👁</button>
+          <button class="toggle-pw" onclick="togglePassword('login-password', this)" type="button" aria-label="Tampilkan password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
       </div>
 
       <div class="login-feedback" id="login-feedback"></div>
+
+      <div class="btn-masuk-container" onclick="prosesMasuk()">
+        <div class="btn-bg"></div>
+        <div class="teks-tombol">MASUK</div>
+      </div>
 
     </div>
 
@@ -647,10 +653,6 @@
       <div class="teks-link" onclick="showPage('page-daftar')">daftar</div>
     </div>
 
-    <div class="btn-masuk-container" onclick="prosesMasuk()">
-      <div class="btn-bg"></div>
-      <div class="teks-tombol">MASUK</div>
-    </div>
 
   </div>
 
@@ -658,6 +660,7 @@
        PAGE 3: DAFTAR
   ══════════════════════════════ -->
   <div class="page" id="page-daftar">
+    <button type="button" class="auth-back" onclick="showPage('page-landing')">&larr; Kembali ke beranda</button>
 
     <!-- SISWA FORM -->
     <div class="regist-siswa active" id="form-siswa">
@@ -695,10 +698,16 @@
           <div class="regist-password">Password</div>
           <div class="password-wrapper">
             <input class="input-field" type="password" id="siswa-password" placeholder="Buat password">
-            <button class="toggle-pw" onclick="togglePassword('siswa-password', this)" type="button">👁</button>
+            <button class="toggle-pw" onclick="togglePassword('siswa-password', this)" type="button" aria-label="Tampilkan password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <div class="daftar-feedback" id="siswa-feedback"></div>
+        <div class="frame-2">
+          <div class="group-5" onclick="prosesDaftar('siswa')">
+            <div class="rectangle-8"></div>
+            <div class="daftar-label">DAFTAR</div>
+          </div>
+        </div>
       </div>
 
       <div class="sudah-punya-akun">
@@ -706,12 +715,6 @@
         <div class="link-masuk" onclick="showPage('page-login')">masuk</div>
       </div>
 
-      <div class="frame-2">
-        <div class="group-5" onclick="prosesDaftar('siswa')">
-          <div class="rectangle-8"></div>
-          <div class="daftar-label">DAFTAR</div>
-        </div>
-      </div>
     </div>
 
     <!-- GURU FORM -->
@@ -750,10 +753,16 @@
           <div class="regist-password">Password</div>
           <div class="password-wrapper">
             <input class="input-field" type="password" id="guru-password" placeholder="Buat password">
-            <button class="toggle-pw" onclick="togglePassword('guru-password', this)" type="button">👁</button>
+            <button class="toggle-pw" onclick="togglePassword('guru-password', this)" type="button" aria-label="Tampilkan password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
         <div class="daftar-feedback" id="guru-feedback"></div>
+        <div class="frame-2">
+          <div class="group-5" onclick="prosesDaftar('guru')">
+            <div class="rectangle-8"></div>
+            <div class="daftar-label">DAFTAR</div>
+          </div>
+        </div>
       </div>
 
       <div class="sudah-punya-akun">
@@ -761,12 +770,6 @@
         <div class="link-masuk" onclick="showPage('page-login')">masuk</div>
       </div>
 
-      <div class="frame-2">
-        <div class="group-5" onclick="prosesDaftar('guru')">
-          <div class="rectangle-8"></div>
-          <div class="daftar-label">DAFTAR</div>
-        </div>
-      </div>
     </div>
 
   </div><!-- end page-daftar -->
@@ -798,14 +801,16 @@
     /* ══════════════════════════
        TOGGLE PASSWORD VISIBILITY
     ══════════════════════════ */
+    const EYE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    const EYE_OFF_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
     function togglePassword(inputId, btn) {
       const input = document.getElementById(inputId);
       if (input.type === 'password') {
         input.type = 'text';
-        btn.innerHTML = '<s>👁</s>';
+        btn.innerHTML = EYE_OFF_ICON;
       } else {
         input.type = 'password';
-        btn.innerHTML = '👁';
+        btn.innerHTML = EYE_ICON;
       }
     }
 

@@ -10,9 +10,13 @@
   --accent-hover: #cc764e;
   --radius: 14px;
   --shadow-card: 0 1px 2px rgba(0,0,0,0.18), 0 8px 24px -12px rgba(0,0,0,0.35);
+  --surface-raised: #221d1b;
+  --line: rgba(255,255,255,0.08);
 }
 [data-theme="light"], body.light-theme {
   --shadow-card: 0 1px 2px rgba(60,40,30,0.06), 0 8px 24px -12px rgba(60,40,30,0.14);
+  --surface-raised: #ffffff;
+  --line: rgba(41,27,23,0.1);
 }
 
 /* ---- Tipografi ---- */
@@ -56,10 +60,73 @@ p { font-weight: 400; }
   bottom: -14px !important;
   background: var(--accent) !important;
 }
-.nav-right svg { width: 30px !important; height: 30px !important; opacity: .9; }
-.nav-right svg:hover { opacity: 1; transform: none !important; }
-.theme-toggle { width: 34px; height: 34px; border-width: 1px !important; }
-.theme-toggle:hover { transform: none !important; border-color: var(--accent) !important; }
+/* Ikon navbar: tombol bulat polos yang seragam (dibungkus oleh common.js) */
+.nav-right { gap: 4px !important; }
+.nav-icon, .theme-toggle {
+  width: 38px !important; height: 38px !important;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; border: none !important; border-radius: 10px !important;
+  background: transparent; cursor: pointer;
+  color: var(--muted-rose, #c4a49d);
+  transition: background-color .2s, color .2s;
+}
+.nav-icon:hover, .theme-toggle:hover {
+  background: rgba(var(--fg-rgb, 255,255,255), 0.06) !important;
+  color: var(--accent);
+  transform: none !important;
+}
+.nav-icon svg, .theme-toggle svg {
+  width: 20px !important; height: 20px !important;
+  transform: none !important; cursor: pointer;
+}
+.nav-icon svg [stroke]:not([stroke="none"]), .theme-toggle svg { stroke: currentColor; }
+.nav-icon svg [fill]:not([fill="none"]) { fill: currentColor; }
+.nav-icon svg [stroke-width="4"] { stroke-width: 4.5; }
+
+/* Menu profil */
+.profile { position: relative; margin-left: 6px; }
+.profile-trigger {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(226,137,95,0.14); color: var(--accent);
+  border: 1px solid rgba(226,137,95,0.32);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer;
+  transition: background-color .2s, border-color .2s;
+}
+.profile-trigger:hover, .profile.open .profile-trigger {
+  background: rgba(226,137,95,0.22); border-color: rgba(226,137,95,0.55);
+}
+.profile-menu {
+  position: absolute; right: 0; top: calc(100% + 10px); z-index: 200;
+  min-width: 220px; padding: 6px;
+  background: var(--surface-raised); border: 1px solid var(--line);
+  border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.45);
+  opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity .15s, transform .15s, visibility .15s;
+}
+.profile.open .profile-menu { opacity: 1; visibility: visible; transform: none; }
+.profile-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 10px 12px; margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.profile-avatar {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(226,137,95,0.14); color: var(--accent);
+  font-size: 12px; font-weight: 600;
+}
+.profile-name { color: var(--fg-solid, #fff); font-size: 14px; font-weight: 600; line-height: 1.3; }
+.profile-role { color: rgba(var(--fg-rgb, 255,255,255), 0.5); font-size: 12px; }
+.profile-item {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 9px 10px; border: none; border-radius: 8px; background: transparent;
+  color: rgba(var(--fg-rgb, 255,255,255), 0.8); font-size: 13.5px; font-weight: 500;
+  text-decoration: none; text-align: left; cursor: pointer;
+}
+.profile-item:hover { background: rgba(var(--fg-rgb, 255,255,255), 0.06); color: var(--fg-solid, #fff); }
+.profile-item svg { width: 16px; height: 16px; opacity: .8; }
+.profile-logout:hover { color: #cf7d74; background: rgba(207,125,116,0.1); }
 
 /* ---- Kartu & panel ---- */
 .soal-card, .stat-card, .hasil-card, .kursus-card, .kelas-card, .modul-card,
@@ -114,16 +181,107 @@ input:focus, textarea:focus, select:focus {
 /* ---- Ikon melayang ---- */
 .chat-icon:hover { transform: translateY(-2px) !important; }
 
-/* ---- Tombol keluar (disisipkan oleh common.js) ---- */
-.btn-logout {
-  display: inline-flex; align-items: center; gap: 6px;
-  height: 34px; padding: 0 12px;
-  background: transparent; color: var(--muted-rose, #c4a49d);
-  border: 1px solid var(--border-color, #4d3b38); border-radius: 8px;
-  font-size: 13px; font-weight: 500; cursor: pointer;
+/* ---- Halaman masuk & daftar ---- */
+#page-login, #page-daftar {
+  position: relative;
+  background:
+    radial-gradient(600px 360px at 50% 0%, rgba(226,137,95,0.10), transparent 70%),
+    #191615 !important;
+  padding: 72px 16px 48px;
 }
-.btn-logout:hover { color: var(--accent); border-color: var(--accent); }
-.btn-logout svg { width: 16px !important; height: 16px !important; opacity: 1; }
+.auth-back {
+  position: absolute; top: 20px; left: 24px;
+  background: transparent; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.55); font-size: 13.5px; font-weight: 500;
+  padding: 8px 10px; border-radius: 8px;
+}
+.auth-back:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.selamat-datang-kembali, .mulai-petualangan-belajarmu, .selamat-datang-pahlawan-edukasi {
+  font-size: 26px !important; letter-spacing: -0.02em; color: #efe3c2 !important;
+}
+.regist-siswa, .regist-guru { gap: 18px !important; }
+.container-login, .container-regist {
+  width: 420px !important; max-width: 100%;
+  background: #211c1a !important;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px !important;
+  padding: 28px !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+  box-shadow: 0 24px 48px -24px rgba(0,0,0,0.6);
+}
+.container-regist > div, .container-login > div { width: 100%; }
+.label-text, .nama-lengkap, .nisn, .nip-nuptk, .regist-email, .regist-password {
+  font-size: 13px !important; font-weight: 500 !important; color: rgba(255,255,255,0.75) !important;
+  margin-bottom: 2px;
+}
+.input-field {
+  height: 44px !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  background: rgba(255,255,255,0.03) !important;
+  font-weight: 400 !important; font-size: 14.5px !important;
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+.input-field:hover { border-color: rgba(255,255,255,0.2) !important; }
+.input-field::placeholder { color: rgba(255,255,255,0.35) !important; }
+.toggle-pw { color: rgba(255,255,255,0.45) !important; border-radius: 6px; }
+.toggle-pw:hover { color: #fff !important; }
+.toggle-pw svg { width: 18px; height: 18px; }
+.checkbox-row { margin-top: 8px; }
+.checkbox-row input[type="checkbox"] { accent-color: var(--accent); }
+.checkbox-row label { font-weight: 400 !important; color: rgba(255,255,255,0.6) !important; }
+
+/* Tombol utama form: solid, selebar kartu */
+.btn-masuk-container, .group-5 {
+  width: 100% !important; height: 46px !important; margin-top: 6px !important;
+}
+.btn-bg, .group-5 .rectangle-8 {
+  width: 100% !important; height: 100% !important;
+  background: var(--accent) !important; border: none !important; border-radius: 10px !important;
+}
+.btn-masuk-container:hover .btn-bg, .group-5:hover .rectangle-8 { background: var(--accent-hover) !important; }
+.teks-tombol, .daftar-label {
+  color: #fff !important; font-size: 14.5px !important; font-weight: 600 !important; letter-spacing: 0.03em;
+}
+.frame-2 { width: 100%; padding: 0 !important; }
+
+.belum-punya-akun, .sudah-punya-akun { margin-top: 18px; gap: 6px !important; }
+.teks-biasa, .sudah-punya-akun2 { font-weight: 400 !important; color: rgba(255,255,255,0.55) !important; font-size: 14px !important; }
+.teks-link, .link-masuk {
+  color: var(--accent) !important; font-weight: 600 !important; font-size: 14px !important;
+  text-decoration: none !important;
+}
+.teks-link:hover, .link-masuk:hover { text-decoration: underline !important; }
+
+/* Pilihan Guru / Siswa sebagai segmented control */
+.pilihan-guru-siswa {
+  gap: 4px !important; padding: 4px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+}
+.btn-peran { border: none !important; width: 132px !important; height: 38px !important; border-radius: 9px !important; }
+.btn-peran-text { font-size: 13px !important; font-weight: 600 !important; letter-spacing: 0.05em; color: rgba(255,255,255,0.6) !important; }
+.regist-guru .btn-guru, .regist-siswa .btn-siswa { background: #2c2522 !important; box-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.regist-guru .btn-guru .btn-peran-text, .regist-siswa .btn-siswa .btn-peran-text { color: #fff !important; }
+.regist-guru .btn-siswa:hover, .regist-siswa .btn-guru:hover { background: rgba(255,255,255,0.04) !important; }
+
+/* ---- Hero landing page ---- */
+#page-landing {
+  background:
+    radial-gradient(700px 420px at 50% 42%, rgba(226,137,95,0.09), transparent 70%),
+    radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px) 0 0 / 26px 26px,
+    #191615 !important;
+}
+
+/* ---- Tombol chat melayang ---- */
+.chat-icon {
+  width: 52px !important; height: 52px !important; padding: 13px;
+  border-radius: 50%; background: var(--accent);
+  box-shadow: 0 10px 24px -8px rgba(226,137,95,0.55);
+  transition: transform .2s, background-color .2s !important;
+}
+.chat-icon:hover { background: var(--accent-hover); }
+.chat-icon path { fill: #fff; }
 
 /* ===== Responsif ===== */
 html, body { max-width: 100%; overflow-x: hidden; }
@@ -157,9 +315,8 @@ img, video, iframe { max-width: 100%; }
   .menu-item.active::after { bottom: 0 !important; }
   .narf, .kit { font-size: 20px !important; }
   .nav-right { gap: 8px !important; }
-  .nav-right > svg { width: 24px !important; height: 24px !important; }
-  .btn-logout span { display: none; }
-  .btn-logout { padding: 0 9px; }
+  .nav-icon, .theme-toggle { width: 34px !important; height: 34px !important; }
+  .profile { margin-left: 2px; }
 
   .navigation { padding: 10px 16px !important; height: auto !important; }
   .nav-masuk, .nav-daftar { font-size: 12px !important; }
@@ -169,7 +326,8 @@ img, video, iframe { max-width: 100%; }
   .sapaan { font-size: 28px !important; }
   .asesmen-judul { font-size: 24px !important; }
   .soal-card, .hasil-card { padding: 24px 20px !important; }
-  .container-login { width: calc(100% - 32px) !important; max-width: 420px; padding: 24px 20px !important; }
+  .container-login, .container-regist { padding: 22px 18px !important; }
+  .auth-back { top: 12px; left: 8px; }
   .thumbnail-placeholder { width: 100% !important; }
 }
 
@@ -180,3 +338,8 @@ img, video, iframe { max-width: 100%; }
   .heading, .frame-3, .frame-4 { padding: 0 !important; gap: 8px !important; }
   .belajar-mikrokontroler-dan-io-t-menyenangkan { font-size: 16px !important; padding: 0 8px; }
 }
+
+/* ---- Detail kecil ---- */
+.narfkit { gap: 4px !important; }
+.login-feedback:empty, .daftar-feedback:empty { display: none; }
+.login-feedback, .daftar-feedback { font-size: 13px !important; font-weight: 500 !important; }
