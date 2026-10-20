@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="global.css">
   <link rel="stylesheet" type="text/css" href="styleguru.css">
   <link rel="stylesheet" type="text/css" href="theme.css">
+  <script src="common.js" defer></script>
 </head>
 <body>
 
@@ -236,13 +237,13 @@
     }
   }
 
-  const saved = localStorage.getItem('narfkit-theme') || 'dark';
+  const saved = localStorage.getItem('narfkit_theme') || 'dark';
   applyTheme(saved);
 
   toggleBtn.addEventListener('click', () => {
     const isLight = root.getAttribute('data-theme') === 'light';
     const next = isLight ? 'dark' : 'light';
-    localStorage.setItem('narfkit-theme', next);
+    localStorage.setItem('narfkit_theme', next);
     applyTheme(next);
   });
 </script>

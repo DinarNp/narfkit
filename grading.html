@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="styleguru.css">
   <link rel="stylesheet" type="text/css" href="grading.css">
   <link rel="stylesheet" type="text/css" href="theme.css">
+  <script src="common.js" defer></script>
 </head>
 <body>
 
@@ -266,11 +267,11 @@
       iconSun.style.display = 'none';
     }
   }
-  const saved = localStorage.getItem('narfkit-theme') || 'dark';
+  const saved = localStorage.getItem('narfkit_theme') || 'dark';
   applyTheme(saved);
   toggleBtn.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    localStorage.setItem('narfkit-theme', next);
+    localStorage.setItem('narfkit_theme', next);
     applyTheme(next);
   });
 

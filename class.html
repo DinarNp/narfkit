@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="styleguru.css">
   <link rel="stylesheet" type="text/css" href="class.css">
   <link rel="stylesheet" type="text/css" href="theme.css">
+  <script src="common.js" defer></script>
 </head>
 
 <body>
@@ -163,12 +164,12 @@
       iconSun.style.display = 'none';
     }
   }
-  const savedTheme = localStorage.getItem('narfkit-theme') || 'dark';
+  const savedTheme = localStorage.getItem('narfkit_theme') || 'dark';
   applyTheme(savedTheme);
   toggleBtn.addEventListener('click', () => {
     const isLight = root.getAttribute('data-theme') === 'light';
     const next = isLight ? 'dark' : 'light';
-    localStorage.setItem('narfkit-theme', next);
+    localStorage.setItem('narfkit_theme', next);
     applyTheme(next);
   });
 

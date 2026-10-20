@@ -774,9 +774,17 @@
 
   <script>
     /* ══════════════════════════
-       IN-MEMORY USER STORE
+       USER STORE (localStorage, demo tanpa backend)
     ══════════════════════════ */
-    const users = []; // { peran, nama, id, email, password }
+    function loadUsers() {
+      try { return JSON.parse(localStorage.getItem('narfkit_users')) || []; }
+      catch (e) { return []; }
+    }
+    function saveUsers() {
+      try { localStorage.setItem('narfkit_users', JSON.stringify(users)); }
+      catch (e) { console.warn('LocalStorage error:', e); }
+    }
+    const users = loadUsers(); // { peran, nama, idNum, email, password }
 
     /* ══════════════════════════
        PAGE NAVIGATION
@@ -870,6 +878,7 @@
 
       // Simpan
       users.push({ peran, nama, idNum, email, password });
+      saveUsers();
       setFeedback(fbId, `Akun berhasil dibuat, ${nama}! Silakan masuk.`, true);
 
       // Pindah ke login setelah 1.5 detik
@@ -904,7 +913,14 @@
 
       setFeedback(fbId, `Selamat datang, ${user.nama}!`, true);
 
-      // Nanti: arahkan ke dashboard sesuai peran
+      // Simpan sesi; progres asesmen direset bila akun berbeda dari sebelumnya
+      try {
+        const prev = JSON.parse(localStorage.getItem('narfkit_session') || 'null');
+        if (!prev || prev.email !== user.email) localStorage.removeItem('narfkit_user');
+        localStorage.setItem('narfkit_session', JSON.stringify({ email: user.email, nama: user.nama, peran: user.peran }));
+        localStorage.setItem('narfkit_nama', user.nama);
+      } catch (e) { console.warn('LocalStorage error:', e); }
+
       setTimeout(() => {
         window.location.href = user.peran === 'siswa'
           ? 'dashboardsiswa.html' : 'dashboardguru.html';

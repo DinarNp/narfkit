@@ -113,3 +113,70 @@ input:focus, textarea:focus, select:focus {
 
 /* ---- Ikon melayang ---- */
 .chat-icon:hover { transform: translateY(-2px) !important; }
+
+/* ---- Tombol keluar (disisipkan oleh common.js) ---- */
+.btn-logout {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 12px;
+  background: transparent; color: var(--muted-rose, #c4a49d);
+  border: 1px solid var(--border-color, #4d3b38); border-radius: 8px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+}
+.btn-logout:hover { color: var(--accent); border-color: var(--accent); }
+.btn-logout svg { width: 16px !important; height: 16px !important; opacity: 1; }
+
+/* ===== Responsif ===== */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, iframe { max-width: 100%; }
+
+@media (max-width: 900px) {
+  .stats-row, .kursus-grid, .ringkasan-grid, .kelas-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .dash-columns, .monitoring-grid, .grading-layout, .panels { grid-template-columns: 1fr !important; }
+  .bmc-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .dash-columns > *, .monitoring-grid > *, .grading-layout > *, .panels > * { min-width: 0; }
+  .belajar-layout { flex-direction: column !important; height: auto !important; }
+  .belajar-layout > * { width: 100% !important; max-width: 100% !important; flex: none !important; }
+}
+
+@media (max-width: 768px) {
+  /* Navbar dua baris: logo + ikon di atas, menu bisa digeser di bawah */
+  .navigasi-siswa {
+    height: auto !important;
+    flex-wrap: wrap !important;
+    padding: 10px 16px 0 !important;
+    row-gap: 4px;
+  }
+  .navigasi-siswa .menu {
+    order: 3; width: 100%;
+    overflow-x: auto; scrollbar-width: none;
+    justify-content: flex-start;
+    padding-bottom: 2px;
+  }
+  .navigasi-siswa .menu::-webkit-scrollbar { display: none; }
+  .menu-item { flex-shrink: 0; font-size: 13px !important; padding: 10px 12px !important; }
+  .menu-item.active::after { bottom: 0 !important; }
+  .narf, .kit { font-size: 20px !important; }
+  .nav-right { gap: 8px !important; }
+  .nav-right > svg { width: 24px !important; height: 24px !important; }
+  .btn-logout span { display: none; }
+  .btn-logout { padding: 0 9px; }
+
+  .navigation { padding: 10px 16px !important; height: auto !important; }
+  .nav-masuk, .nav-daftar { font-size: 12px !important; }
+  .frame-12, .frame-13 { padding: 7px 12px !important; }
+
+  .main-content, main { padding-left: 16px !important; padding-right: 16px !important; }
+  .sapaan { font-size: 28px !important; }
+  .asesmen-judul { font-size: 24px !important; }
+  .soal-card, .hasil-card { padding: 24px 20px !important; }
+  .container-login { width: calc(100% - 32px) !important; max-width: 420px; padding: 24px 20px !important; }
+  .thumbnail-placeholder { width: 100% !important; }
+}
+
+@media (max-width: 520px) {
+  .stats-row, .kursus-grid, .ringkasan-grid, .kelas-grid,
+  .bmc-grid, .swot-grid, .alat-bahan-list { grid-template-columns: 1fr !important; }
+  .mulai-eksplorasi-dunia, .iot { font-size: 34px !important; }
+  .heading, .frame-3, .frame-4 { padding: 0 !important; gap: 8px !important; }
+  .belajar-mikrokontroler-dan-io-t-menyenangkan { font-size: 16px !important; padding: 0 8px; }
+}
