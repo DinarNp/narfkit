@@ -54,8 +54,8 @@
     }
     const t = document.createElement('div');
     t.textContent = msg;
-    t.style.cssText = 'font:700 14px Montserrat,sans-serif;padding:12px 20px;border-radius:12px;color:#fff;max-width:90vw;box-shadow:0 6px 24px rgba(0,0,0,.35);background:' +
-      (tipe === 'error' ? '#c0392b' : tipe === 'ok' ? '#2e8b57' : '#7a4b47');
+    t.style.cssText = 'font:500 14px Inter,system-ui,sans-serif;padding:12px 20px;border-radius:12px;color:#fff;max-width:90vw;box-shadow:0 6px 24px rgba(0,0,0,.35);background:' +
+      (tipe === 'error' ? '#b9544a' : tipe === 'ok' ? '#3f8f68' : '#4d3b38');
     wrap.appendChild(t);
     setTimeout(() => t.remove(), 4200);
   }

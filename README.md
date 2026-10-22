@@ -35,18 +35,19 @@ NARF KIT dirancang dengan mempertimbangkan sekolah di daerah 3T (terdepan, terlu
 | Front end | HTML, CSS, dan JavaScript (tanpa framework dan tanpa build step) |
 | Backend | Supabase (Auth, PostgreSQL, Row Level Security, Edge Functions) |
 | Library | `@supabase/supabase-js` 2.45.4, `DOMPurify` 3.1.6 |
-| Font | Montserrat (Google Fonts) |
+| Font | Inter (teks) dan Montserrat (logo), dari Google Fonts |
 
 ## Struktur Folder
 
 ```text
 .
-├── landingpage.html      # login dan registrasi
+├── index.html            # landing page, login Google, lengkapi profil
 ├── dashboardsiswa.html   # dashboard siswa
 ├── course.html           # katalog course, materi, kuis, jurnal, project
 ├── simulation.html       # simulasi rangkaian
 ├── chatbot.html          # chatbot AI
 ├── style.css
+├── theme.css             # lapisan tampilan bersama (tipografi, navbar, kartu, responsif)
 ├── course.css
 ├── global.js
 ├── auth.js
@@ -85,7 +86,7 @@ Front end berjalan di komputer, sedangkan data tetap diambil dari Supabase cloud
    npx serve .
 ```
 
-4. Buka `http://localhost:5500/landingpage.html`.
+4. Buka `http://localhost:5500/`.
 
 > Jika diperlukan, tambahkan `http://localhost:5500` pada Supabase → Authentication → URL Configuration → Redirect URLs.
 
@@ -132,7 +133,7 @@ Perintah `supabase start` menampilkan **API URL** (umumnya `http://127.0.0.1:543
 
 - Chatbot AI dan saran penilaian AI (memanggil layanan AI eksternal)
 - Simulasi Wokwi (disematkan dari situs Wokwi)
-- Font Montserrat (tanpa internet, tampilan memakai font cadangan)
+- Font Inter dan Montserrat (tanpa internet, tampilan memakai font cadangan)
 - Materi video YouTube dan file Google Drive (gunakan file `.mp4` atau `.pdf` lokal agar dapat dibuka offline)
 
 ### Menyiapkan folder `supabase/`

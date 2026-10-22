@@ -2,7 +2,7 @@
 .ringkasan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .ringkasan-card {
   background: rgba(var(--card-rgb),0.04);
-  border: 1.5px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 18px 20px;
   display: flex;
@@ -12,9 +12,9 @@
   transition: border-color 0.2s, transform 0.2s;
 }
 .ringkasan-card:hover { border-color: var(--muted-rose); transform: translateY(-2px); }
-.ringkasan-angka { font-size: 30px; font-weight: 700; color: rgba(var(--highlight-rgb),0.9); }
-.ringkasan-label { font-size: 12.5px; font-weight: 700; color: rgba(var(--fg-rgb),0.55); }
-.ringkasan-card.urgent .ringkasan-angka { color: #fe7f42; }
+.ringkasan-angka { font-size: 30px; font-weight: 600; color: rgba(var(--highlight-rgb),0.9); }
+.ringkasan-label { font-size: 12.5px; font-weight: 600; color: rgba(var(--fg-rgb),0.55); }
+.ringkasan-card.urgent .ringkasan-angka { color: #e2895f; }
 /* ===== CLASS PAGE (khusus tambahan di luar styleguru.css) ===== */
 
 main {
@@ -39,13 +39,13 @@ main {
 /* ----- Tombol kembali ----- */
 .btn-back {
   background: transparent;
-  border: 1px solid #fe7f42;
-  color: #fe7f42;
+  border: 1px solid #e2895f;
+  color: #e2895f;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -53,7 +53,7 @@ main {
   text-decoration: none;
   transition: 0.2s;
 }
-.btn-back:hover { background: #fe7f42; color: #fff; }
+.btn-back:hover { background: #e2895f; color: #fff; }
 
 /* ----- Header detail kelas ----- */
 .detail-header {
@@ -64,26 +64,26 @@ main {
   gap: 16px;
   margin-bottom: 24px;
 }
-.detail-judul { color: rgba(var(--highlight-rgb),0.9); font-size: 28px; font-weight: 700; }
-.detail-sub { color: rgba(var(--fg-rgb),0.45); font-size: 13.5px; font-weight: 700; margin-top: 4px; }
+.detail-judul { color: rgba(var(--highlight-rgb),0.9); font-size: 28px; font-weight: 600; }
+.detail-sub { color: rgba(var(--fg-rgb),0.45); font-size: 13.5px; font-weight: 600; margin-top: 4px; }
 
 /* ----- Search bar ----- */
 .search-wrap { position: relative; width: 100%; max-width: 320px; }
 .search-input {
   width: 100%;
   background: rgba(var(--border-rgb),0.1);
-  border: 1.5px solid rgba(var(--border-rgb),0.5);
+  border: 1px solid rgba(var(--border-rgb),0.5);
   border-radius: 14px;
   padding: 11px 16px 11px 40px;
   color: var(--fg-solid);
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   outline: none;
   transition: border-color 0.2s;
 }
 .search-input::placeholder { color: rgba(var(--muted-rose-rgb),0.45); }
-.search-input:focus { border-color: #fe7f42; }
+.search-input:focus { border-color: #e2895f; }
 .search-icon {
   position: absolute;
   left: 14px;
@@ -99,7 +99,7 @@ main {
 .table-scroll {
   width: 100%;
   overflow-x: auto;
-  border: 1.5px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 18px;
 }
 .siswa-table {
@@ -111,7 +111,7 @@ main {
 .siswa-table thead th {
   text-align: left;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: rgba(var(--fg-rgb),0.4);
@@ -123,7 +123,7 @@ main {
 .siswa-table tbody td {
   padding: 14px;
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--fg-solid);
   border-bottom: 1px solid rgba(var(--border-rgb),0.35);
   white-space: nowrap;
@@ -137,10 +137,10 @@ main {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(254,127,66,0.15);
-  color: #fe7f42;
+  background: rgba(226,137,95,0.15);
+  color: #e2895f;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,31 +154,31 @@ main {
   padding: 3px 9px;
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 700;
-  background: rgba(254,127,66,0.12);
-  border: 1px solid rgba(254,127,66,0.3);
-  color: #fe7f42;
+  font-weight: 600;
+  background: rgba(226,137,95,0.12);
+  border: 1px solid rgba(226,137,95,0.3);
+  color: #e2895f;
 }
 
-.siswa-modul { color: rgba(var(--fg-rgb),0.65); font-weight: 700; }
+.siswa-modul { color: rgba(var(--fg-rgb),0.65); font-weight: 600; }
 
 /* Progress mini bar (dipakai di kolom Progress) */
 .mini-progress-wrap { display: flex; flex-direction: column; gap: 5px; min-width: 100px; }
-.mini-progress-persen { font-size: 12px; font-weight: 700; color: rgba(var(--highlight-rgb),0.9); }
+.mini-progress-persen { font-size: 12px; font-weight: 600; color: rgba(var(--highlight-rgb),0.9); }
 .mini-progress-bar { background: rgba(var(--card-rgb),0.15); border-radius: 30px; height: 6px; width: 100%; overflow: hidden; }
-.mini-progress-fill { background: #fe7f42; height: 100%; border-radius: 30px; }
+.mini-progress-fill { background: #e2895f; height: 100%; border-radius: 30px; }
 
 /* Status online/offline */
-.status-wrap { display: flex; align-items: center; gap: 7px; font-weight: 700; }
+.status-wrap { display: flex; align-items: center; gap: 7px; font-weight: 600; }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.status-online .status-dot { background: #4dda90; }
-.status-online { color: #4dda90; }
+.status-online .status-dot { background: #6dbb93; }
+.status-online { color: #6dbb93; }
 .status-offline .status-dot { background: rgba(var(--fg-rgb),0.25); }
 .status-offline { color: rgba(var(--fg-rgb),0.4); }
 
 /* XP columns */
-.xp-total { color: rgba(var(--highlight-rgb),0.9); font-weight: 700; }
-.xp-modul { color: rgba(var(--fg-rgb),0.6); font-weight: 700; }
+.xp-total { color: rgba(var(--highlight-rgb),0.9); font-weight: 600; }
+.xp-modul { color: rgba(var(--fg-rgb),0.6); font-weight: 600; }
 
 /* Perlu dinilai badge */
 .perlu-badge {
@@ -189,37 +189,37 @@ main {
   padding: 3px 9px;
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 700;
-  background: rgba(254,127,66,0.12);
-  border: 1px solid rgba(254,127,66,0.3);
-  color: #fe7f42;
+  font-weight: 600;
+  background: rgba(226,137,95,0.12);
+  border: 1px solid rgba(226,137,95,0.3);
+  color: #e2895f;
 }
-.perlu-kosong { color: rgba(var(--fg-rgb),0.3); font-weight: 700; }
+.perlu-kosong { color: rgba(var(--fg-rgb),0.3); font-weight: 600; }
 
 /* Status project */
-.project-status { font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: inline-block; }
-.project-selesai { background: rgba(77,218,144,0.12); border: 1px solid rgba(77,218,144,0.3); color: #4dda90; }
+.project-status { font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: inline-block; }
+.project-selesai { background: rgba(109,187,147,0.12); border: 1px solid rgba(109,187,147,0.3); color: #6dbb93; }
 .project-proses { background: rgba(var(--muted-rose-rgb),0.15); border: 1px solid rgba(var(--muted-rose-rgb),0.35); color: var(--muted-rose); }
-.project-belum { color: rgba(var(--fg-rgb),0.35); font-weight: 700; }
+.project-belum { color: rgba(var(--fg-rgb),0.35); font-weight: 600; }
 
 /* Aksi */
 .btn-aksi {
   background: transparent;
-  border: 1.5px solid var(--muted-rose);
+  border: 1px solid var(--muted-rose);
   border-radius: 10px;
   padding: 7px 14px;
   color: rgba(var(--highlight-rgb),0.9);
   font-family: "Montserrat", sans-serif;
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
   transition: all 0.2s;
 }
-.btn-aksi:hover { background: rgba(254,127,66,0.12); border-color: #fe7f42; }
+.btn-aksi:hover { background: rgba(226,137,95,0.12); border-color: #e2895f; }
 
-.tabel-kosong { padding: 40px; text-align: center; color: rgba(var(--fg-rgb),0.4); font-weight: 700; font-size: 14px; }
+.tabel-kosong { padding: 40px; text-align: center; color: rgba(var(--fg-rgb),0.4); font-weight: 600; font-size: 14px; }
 
 /* ----- Responsive ----- */
 @media (max-width: 900px) {

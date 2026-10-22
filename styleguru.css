@@ -14,16 +14,16 @@
 
 /* ----- Sambutan ----- */
 .kata-kata { display: flex; flex-direction: column; gap: 8px; }
-.sapaan { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 700; }
+.sapaan { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 600; }
 .sapaan-icon { width: 50px; height: 50px; flex-shrink: 0; }
 .halo { color: var(--fg-solid); }
 .nama-guru { color: rgba(var(--highlight-rgb),0.9); }
-.subtitle { font-size: 18px; color: rgba(var(--fg-rgb),0.65); font-weight: 700; padding-left: 4px; }
+.subtitle { font-size: 18px; color: rgba(var(--fg-rgb),0.65); font-weight: 600; padding-left: 4px; }
 
 /* ----- Label section (dipakai di atas tiap blok: SEMUA KELAS, dst) ----- */
 .section-label {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(var(--fg-rgb),0.4);
@@ -32,18 +32,18 @@
 
 /* Kelas grid */
 .kelas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.kelas-card { background: rgba(var(--card-rgb),0.04); border: 1.5px solid var(--border-color); border-radius: 18px; padding: 24px 20px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: border-color 0.2s, transform 0.2s; text-decoration: none; }
+.kelas-card { background: rgba(var(--card-rgb),0.04); border: 1px solid var(--border-color); border-radius: 18px; padding: 24px 20px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: border-color 0.2s, transform 0.2s; text-decoration: none; }
 .kelas-card:hover { border-color: var(--muted-rose); transform: translateY(-3px); }
-.kelas-icon svg { width: 40px; height: 40px; color: #fe7f42; }
-.kelas-judul { color: rgba(var(--highlight-rgb),0.9); font-size: 16px; font-weight: 700; line-height: 1.4; margin-top: 4px;}
+.kelas-icon svg { width: 40px; height: 40px; color: #e2895f; }
+.kelas-judul { color: rgba(var(--highlight-rgb),0.9); font-size: 16px; font-weight: 600; line-height: 1.4; margin-top: 4px;}
 .kelas-meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto;}
-.kelas-isi { color: rgba(var(--fg-rgb),0.4); font-size: 12px; font-weight: 700; }
+.kelas-isi { color: rgba(var(--fg-rgb),0.4); font-size: 12px; font-weight: 600; }
 
 /* ----- Ringkasan cepat (asesmen/kuis/proyek belum dinilai) ----- */
 .ringkasan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .ringkasan-card {
   background: rgba(var(--card-rgb),0.04);
-  border: 1.5px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 18px 20px;
   display: flex;
@@ -53,16 +53,16 @@
   transition: border-color 0.2s, transform 0.2s;
 }
 .ringkasan-card:hover { border-color: var(--muted-rose); transform: translateY(-2px); }
-.ringkasan-angka { font-size: 30px; font-weight: 700; color: rgba(var(--highlight-rgb),0.9); }
-.ringkasan-label { font-size: 12.5px; font-weight: 700; color: rgba(var(--fg-rgb),0.55); }
-.ringkasan-card.urgent .ringkasan-angka { color: #fe7f42; }
+.ringkasan-angka { font-size: 30px; font-weight: 600; color: rgba(var(--highlight-rgb),0.9); }
+.ringkasan-label { font-size: 12.5px; font-weight: 600; color: rgba(var(--fg-rgb),0.55); }
+.ringkasan-card.urgent .ringkasan-angka { color: #e2895f; }
 
 /* ----- Layout 2 kolom (perlu dinilai + top siswa) ----- */
 .dash-columns { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; align-items: start; }
 
 .panel {
   background: rgba(var(--card-rgb),0.04);
-  border: 1.5px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 18px;
   padding: 22px 22px 20px;
   display: flex;
@@ -74,17 +74,17 @@
   align-items: center;
   justify-content: space-between;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--fg-solid);
 }
 .panel-header a {
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: 600;
   color: rgba(var(--fg-rgb),0.45);
   text-decoration: none;
   transition: color 0.2s;
 }
-.panel-header a:hover { color: #fe7f42; }
+.panel-header a:hover { color: #e2895f; }
 
 /* Perlu dinilai — badge pakai gaya tinted-pill yang sama seperti .asesmen-badge / .tag-kursus di web ini */
 .nilai-list { display: flex; flex-direction: column; gap: 10px; }
@@ -102,21 +102,21 @@
 .badge-tipe {
   flex-shrink: 0;
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1px;
   padding: 5px 11px;
   border-radius: 20px;
   text-transform: uppercase;
   border: 1px solid transparent;
 }
-.badge-asesmen { background: rgba(254,127,66,0.12); border-color: rgba(254,127,66,0.3); color: #fe7f42; }
+.badge-asesmen { background: rgba(226,137,95,0.12); border-color: rgba(226,137,95,0.3); color: #e2895f; }
 .badge-kuis { background: rgba(var(--muted-rose-rgb),0.15); border-color: rgba(var(--muted-rose-rgb),0.35); color: var(--muted-rose); }
-.badge-proyek { background: rgba(77,218,144,0.12); border-color: rgba(77,218,144,0.3); color: #4dda90; }
+.badge-proyek { background: rgba(109,187,147,0.12); border-color: rgba(109,187,147,0.3); color: #6dbb93; }
 .nilai-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.nilai-judul { font-size: 14.5px; font-weight: 700; color: var(--fg-solid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nilai-kelas { font-size: 12px; font-weight: 700; color: rgba(var(--fg-rgb),0.45); }
-.nilai-jumlah { flex-shrink: 0; text-align: right; font-size: 13px; font-weight: 700; color: #fe7f42; }
-.nilai-jumlah span { display: block; font-size: 10.5px; font-weight: 700; color: rgba(var(--fg-rgb),0.4); }
+.nilai-judul { font-size: 14.5px; font-weight: 600; color: var(--fg-solid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nilai-kelas { font-size: 12px; font-weight: 600; color: rgba(var(--fg-rgb),0.45); }
+.nilai-jumlah { flex-shrink: 0; text-align: right; font-size: 13px; font-weight: 600; color: #e2895f; }
+.nilai-jumlah span { display: block; font-size: 10.5px; font-weight: 600; color: rgba(var(--fg-rgb),0.4); }
 
 /* Top 3 siswa (XP) — medali pakai gradasi dari warna aksen yang sama, bukan warna baru */
 .top-siswa-list { display: flex; flex-direction: column; gap: 10px; }
@@ -137,15 +137,15 @@
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
 }
-.rank-1 { background: #fe7f42; color: #fff; }
+.rank-1 { background: #e2895f; color: #fff; }
 .rank-2 { background: rgba(var(--muted-rose-rgb),0.9); color: #fff; }
 .rank-3 { background: rgba(var(--border-rgb),0.6); color: var(--fg-solid); }
 .top-siswa-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.top-siswa-nama { font-size: 14.5px; font-weight: 700; color: var(--fg-solid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.top-siswa-kelas { font-size: 12px; font-weight: 700; color: rgba(var(--fg-rgb),0.45); }
-.top-siswa-xp { flex-shrink: 0; font-size: 14px; font-weight: 700; color: rgba(var(--highlight-rgb),0.9); }
+.top-siswa-nama { font-size: 14.5px; font-weight: 600; color: var(--fg-solid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top-siswa-kelas { font-size: 12px; font-weight: 600; color: rgba(var(--fg-rgb),0.45); }
+.top-siswa-xp { flex-shrink: 0; font-size: 14px; font-weight: 600; color: rgba(var(--highlight-rgb),0.9); }
 
 /* Riwayat prompt siswa */
 .prompt-list { display: flex; flex-direction: column; gap: 12px; }
@@ -161,20 +161,20 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(254,127,66,0.15);
-  color: #fe7f42;
+  background: rgba(226,137,95,0.15);
+  color: #e2895f;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .prompt-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .prompt-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.prompt-nama { font-size: 13.5px; font-weight: 700; color: var(--fg-solid); }
-.prompt-kelas { font-size: 11.5px; font-weight: 700; color: rgba(var(--fg-rgb),0.4); }
-.prompt-waktu { margin-left: auto; font-size: 11.5px; font-weight: 700; color: rgba(var(--fg-rgb),0.4); }
-.prompt-teks { font-size: 13.5px; font-weight: 700; color: rgba(var(--fg-rgb),0.7); line-height: 1.45; }
+.prompt-nama { font-size: 13.5px; font-weight: 600; color: var(--fg-solid); }
+.prompt-kelas { font-size: 11.5px; font-weight: 600; color: rgba(var(--fg-rgb),0.4); }
+.prompt-waktu { margin-left: auto; font-size: 11.5px; font-weight: 600; color: rgba(var(--fg-rgb),0.4); }
+.prompt-teks { font-size: 13.5px; font-weight: 600; color: rgba(var(--fg-rgb),0.7); line-height: 1.45; }
 
 /* ----- Responsive ----- */
 @media (max-width: 900px) {
