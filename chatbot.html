@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NARF KIT - Chatbot</title>
-  <script src="global.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" type="text/css" href="chatbot.css">
+  <script src="global.js?v=20261023"></script>
+  <link rel="stylesheet" type="text/css" href="style.css?v=20261023">
+  <link rel="stylesheet" type="text/css" href="chatbot.css?v=20261023">
   <style>
     .bubble.user { white-space: pre-wrap; }
     .bubble.bot p { margin: 0 0 8px; } .bubble.bot p:last-child { margin-bottom: 0; }
@@ -17,7 +17,7 @@
     .bubble.galat { border: 1px solid #cf7d74; }
     .chip { cursor: pointer; }
   </style>
-  <link rel="stylesheet" type="text/css" href="theme.css">
+  <link rel="stylesheet" type="text/css" href="theme.css?v=20261023">
 </head>
 <body>
 
@@ -107,9 +107,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
-<script src="config.js"></script>
-<script src="auth.js"></script>
-<script src="siswa-nav.js"></script>
+<script src="config.js?v=20261023"></script>
+<script src="auth.js?v=20261023"></script>
+<script src="siswa-nav.js?v=20261023"></script>
 <script>
   // Tidak ada API key di halaman ini. Chat lewat Edge Function "chat-ai" (kunci & prompt ada di server).
   const BOT_SVG = `<svg width="20" height="24" viewBox="0 0 600 734" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M300 0C263.18 0 233.333 29.8477 233.333 66.6667C233.333 91.3427 246.74 112.888 266.667 124.415V200H100C44.7717 200 0 244.772 0 300V633.333C0 688.563 44.7717 733.333 100 733.333H500C555.23 733.333 600 688.563 600 633.333V300C600 244.772 555.23 200 500 200H333.333V124.415C353.26 112.888 366.667 91.3427 366.667 66.6667C366.667 29.8477 336.82 0 300 0ZM66.6667 300C66.6667 281.591 81.5907 266.667 100 266.667H146.066L194.306 363.147C205.599 385.733 228.683 400 253.933 400H346.067C371.317 400 394.4 385.733 405.693 363.147L453.933 266.667H500C518.41 266.667 533.333 281.591 533.333 300V633.333C533.333 651.743 518.41 666.667 500 666.667H100C81.5907 666.667 66.6667 651.743 66.6667 633.333V300ZM346.067 333.333L379.4 266.667H220.601L253.933 333.333H346.067Z" fill="#e2895f"/></svg>`

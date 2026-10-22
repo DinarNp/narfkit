@@ -123,8 +123,11 @@
     }
     if (bU) {
       const p = buatPanel('panel-profil', 'Akun');
-      p.querySelector('.nav-panel-body').innerHTML = '<div class="profil-nama">' + esc(profil.nama) + '</div><div class="profil-email">' +
-        esc(profil.email || '') + '</div><button type="button" class="nav-link-btn keluar" id="btn-keluar-nav">Keluar</button>';
+      const peran = { siswa: 'Siswa', guru: 'Guru', admin: 'Admin' }[profil.role] || '';
+      p.querySelector('.nav-panel-body').innerHTML = '<div class="profil-head"><span class="profil-avatar">' + esc(Narf.inisial(profil.nama)) +
+        '</span><div class="profil-teks"><div class="profil-nama">' + esc(profil.nama) + '</div><div class="profil-email">' +
+        esc(profil.email || '') + '</div>' + (peran ? '<span class="profil-peran">' + esc(peran) + '</span>' : '') + '</div></div>' +
+        '<button type="button" class="nav-link-btn keluar" id="btn-keluar-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Keluar</button>';
       p.querySelector('#btn-keluar-nav').addEventListener('click', () => Narf.signOut());
       bU.addEventListener('click', e => { e.stopPropagation(); buka(p, bU); });
     }
