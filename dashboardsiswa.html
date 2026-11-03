@@ -43,6 +43,57 @@
     .kontak-email { font-size:16px; font-weight: 700; padding:12px 14px; border-radius:12px; border: 1px solid var(--border-color); background: rgba(var(--border-rgb),0.12); overflow-wrap:anywhere; user-select:all; margin-bottom:16px; }
     .kontak-aksi { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
     .stats-row { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+    /* User Manual dan Lab IoT ditampilkan berdampingan */
+    .hardware-grid-dua {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+    .hardware-item {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .hardware-item .hw-card {
+      flex: 1;
+      height: 100%;
+    }
+    @media (max-width: 700px) {
+      .hardware-grid-dua {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .aktivitas-belajar { min-width: 0; }
+    .judul-kursus { min-width: 0; }
+    .kursus-title, .detail-modul { overflow-wrap: anywhere; }
+    .detail-modul { flex-wrap: wrap; }
+    
+    @media (max-width: 720px) {
+      .aktivitas-belajar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        padding: 16px;
+      }
+      .thumbnail {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+      }
+      .thumbnail-placeholder {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+      }
+      .judul-kursus { gap: 12px; }
+      .kursus-title { font-size: 18px; }
+      .progress-bar-container { max-width: none; }
+      .judul-kursus .btn-lanjut { width: 100%; box-sizing: border-box; text-align: center; }
+    }
   </style>
   <link rel="stylesheet" type="text/css" href="theme.css?v=20261023">
 </head>
@@ -227,26 +278,31 @@
       </div>
     </div>
 
-    <div>
-     <div class="section-label">PANDUAN HARDWARE KIT</div>
-     <div class="hardware-grid">
-       <div class="hw-card">
+    <div class="hardware-grid hardware-grid-dua">
+      <div class="hardware-item">
+        <div class="section-label">PANDUAN HARDWARE KIT</div>
+        <div class="hw-card">
           <div class="hw-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-         </div>
-         <div class="hw-content">
-           <h3>User Manual NARF Kit Hardware </h3>
-           <p>Panduan lengkap instalasi driver, wiring, dan troubleshooting kit fisikmu.</p>
-           <button class="btn-hw" onclick="window.open('manual_narf.pdf', '_blank')">Baca Manual</button>
-         </div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div class="hw-content">
+            <h3>User Manual NARF Kit Hardware</h3>
+            <p>Panduan lengkap instalasi driver, wiring, dan troubleshooting kit fisikmu.</p>
+            <button class="btn-hw" onclick="window.open('https://qcogfcfrmlyhfxramhrm.supabase.co/storage/v1/object/public/manual%20book/Guidebook_Koper_NARF_Pertemuan1.docx.pdf', '_blank', 'noopener')">Baca Manual</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div>
-      <div class="section-label">LAB IOT</div>
-      <div class="hardware-grid">
-        <div class="hw-card" id="iot-card-slot"></div>
+      <div class="hardware-item">
+        <div class="section-label">LAB IOT</div>
+        <div class="hardware-grid">
+          <div class="hw-card" id="iot-card-slot"></div>
+        </div>
       </div>
     </div>
 
@@ -827,6 +883,48 @@ async function muatNilai() {
   } catch (e) { $('stat-nilai-sub').textContent = 'tidak bisa dimuat' }
 }
 
+// ---- Preview video untuk kartu "Lanjutkan Belajar" ----
+function urlThumbnail(u) {
+  try {
+    const x = new URL(u)
+    const h = x.hostname.replace(/^www\./, '').replace(/^m\./, '')
+    let v = ''
+    if (h === 'youtube.com' || h === 'youtube-nocookie.com') {
+      v = x.searchParams.get('v') || (x.pathname.startsWith('/embed/') ? x.pathname.split('/')[2] : '')
+    } else if (h === 'youtu.be') {
+      v = x.pathname.slice(1)
+    } else if (h === 'drive.google.com') {
+      const m = x.pathname.match(/\/file\/d\/([^/]+)/)
+      if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w640'
+    }
+    if (v) return 'https://img.youtube.com/vi/' + encodeURIComponent(v) + '/hqdefault.jpg'
+  } catch (e) { /* url tidak valid */ }
+  return ''
+}
+
+async function pasangPreview(thumb, modulId) {
+  try {
+    if (!modulId) { // semua selesai: pakai video modul pertama dari course pertama
+      const c = await Narf.query(sb.from('course').select('id').order('urutan').order('judul').limit(1))
+      if (!c || !c.length) return
+      const m = await Narf.query(sb.from('modul').select('id').eq('course_id', c[0].id).order('urutan').limit(1))
+      if (!m || !m.length) return
+      modulId = m[0].id
+    }
+    const v = await Narf.query(sb.from('materi').select('url').eq('modul_id', modulId).eq('tipe', 'video')
+      .not('url', 'is', null).order('urutan').limit(1))
+    const src = v && v.length ? urlThumbnail(v[0].url) : ''
+    if (!src) return
+    const asli = thumb.innerHTML
+    const img = new Image()
+    img.alt = 'Preview video'
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block'
+    img.onload = () => { thumb.innerHTML = ''; thumb.style.overflow = 'hidden'; thumb.appendChild(img) }
+    img.onerror = () => { thumb.innerHTML = asli }
+    img.src = src
+  } catch (e) { }
+}
+
 async function tampilDashboard(d) {
   tampilLayar('screen-dashboard')
   muatPosttest()
@@ -850,6 +948,7 @@ async function tampilDashboard(d) {
     $('kursus-subtitle').textContent = 'Cek Project Akhir atau ulangi materi favoritmu.'
     $('progress-fill').style.width = '100%'
     $('progress-label').textContent = 'Progress: 100%'
+    pasangPreview(thumb, null)
     $('btn-lanjut').onclick = () => { location.href = 'course.html' }
     $('btn-play').onclick = () => { location.href = 'course.html' }
   } else {
@@ -859,6 +958,7 @@ async function tampilDashboard(d) {
     $('kursus-modul').textContent = 'Modul ' + l.urutan
     $('kursus-subtitle').textContent = l.modul
     thumb.innerHTML = svg(IKON_TIPE[l.tipe] || IKON_TIPE.teks, 'width="64" height="64"')
+    pasangPreview(thumb, l.modul_id)
     const persen = Math.round(l.persen || 0)
     setTimeout(() => { $('progress-fill').style.width = persen + '%' }, 300)
     $('progress-label').textContent = 'Progress: ' + persen + '%' + (persen === 0 ? ' — Siap dimulai!' : '')
