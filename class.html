@@ -60,12 +60,71 @@
 
         <hr class="pembatas">
 
+        <!-- Konten belajar -->
+        <div class="kelas">
+          <div class="section-label">KONTEN BELAJAR</div>
+          <a class="konten-card" href="kelola.html">
+            <div class="konten-ikon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H19"/><path d="M9 8h6M9 12h6"/></svg>
+            </div>
+            <div class="konten-isi">
+              <div class="konten-judul">Kelola Modul, Kuis, dan Project</div>
+              <div class="konten-desk">Buat course sendiri, unggah materi, susun kuis dan project, lalu pilih kelas mana yang boleh melihatnya.</div>
+              <div class="konten-chip-baris">
+                <span class="konten-chip">Video</span><span class="konten-chip">PDF</span><span class="konten-chip">Bacaan</span><span class="konten-chip">Kuis</span><span class="konten-chip">Project</span>
+              </div>
+              <div class="konten-stat" id="konten-stat" hidden></div>
+            </div>
+            <span class="konten-tombol">Buka Kelola <span aria-hidden="true">&rarr;</span></span>
+          </a>
+        </div>
+
+        <hr class="pembatas">
+
+        <!-- Kelas saya + kode gabung -->
+        <div class="kelas">
+          <div class="section-label">KELAS SAYA &amp; KODE GABUNG</div>
+          <div id="kode-kelas-list" class="kode-kelas-list"><div class="tabel-kosong">Memuat...</div></div>
+          <button type="button" class="btn-kelas-baru" id="btn-kelas-baru">+ Tambah Kelas</button>
+        </div>
+
+        <hr class="pembatas">
+
+        <style>
+          .kode-kelas-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+          .kode-kelas-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border: 1px solid var(--border-color); border-radius: 14px; }
+          .kode-nama { font-weight: 700; color: var(--fg-solid); }
+          .kode-meta { font-size: 12px; color: rgba(var(--fg-rgb), .6); margin-top: 2px; }
+          .kode-aksi { display: flex; align-items: center; gap: 10px; }
+          .kode-teks { font-family: ui-monospace, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #e2895f; user-select: all; }
+          .btn-salin, .btn-kelas-baru, .btn-keluarkan { background: transparent; border: 1px solid #e2895f; color: #e2895f; border-radius: 10px; padding: 8px 16px; font-weight: 600; font-size: 13px; font-family: inherit; cursor: pointer; }
+          .btn-salin:hover, .btn-kelas-baru:hover { background: rgba(226,137,95,.12); }
+          .btn-keluarkan { padding: 0 7px; margin-left: 6px; line-height: 20px; font-size: 14px; border-color: #d9675c; color: #d9675c; }
+          #dlg-kelas { background: var(--bg-primary); color: var(--fg-solid); border: 1px solid var(--border-color); border-radius: 18px; padding: 24px; width: min(440px, 92vw); }
+          #dlg-kelas::backdrop { background: rgba(0,0,0,.55); }
+          #dlg-kelas label { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; font-size: 13px; font-weight: 600; }
+          #dlg-kelas input { background: rgba(var(--card-rgb), .06); border: 1px solid var(--border-color); color: var(--fg-solid); border-radius: 10px; padding: 10px 12px; font-weight: 400; font-size: 14px; font-family: inherit; }
+          #dlg-kelas-err { color: #d9675c; font-size: 13px; min-height: 18px; margin-bottom: 10px; }
+        </style>
+        <dialog id="dlg-kelas">
+          <form id="dlg-kelas-form">
+            <h3 style="margin:0 0 16px;font-size:18px">Tambah kelas</h3>
+            <label>Nama kelas<input id="kelas-nama" required maxlength="80" placeholder="contoh: XII Teknik Otomasi 1"></label>
+            <label>Tahun ajaran (opsional)<input id="kelas-tahun" maxlength="20" placeholder="2026/2027"></label>
+            <div id="dlg-kelas-err" role="alert"></div>
+            <div style="display:flex;justify-content:flex-end;gap:10px">
+              <button type="button" class="btn-salin" id="dlg-kelas-batal">Batal</button>
+              <button type="submit" class="btn-kelas-baru" id="dlg-kelas-simpan">Simpan</button>
+            </div>
+          </form>
+        </dialog>
+
         <!-- Kelas -->
         <div class="kelas">
           <div class="section-label">SEMUA KELAS</div>
           <div class="kelas-grid" id="kelas-grid"><div class="tabel-kosong">Memuat...</div></div>
         </div>
-
+        
       </div>
 
       <!-- ===== SCREEN 2: DETAIL KELAS (DAFTAR SISWA) ===== -->
@@ -144,7 +203,8 @@ function renderTabel(keyword) {
   tb.innerHTML = list.map(s => {
     const p = Math.round(s.progress || 0)
     return '<tr><td><div class="siswa-nama-cell"><div class="siswa-avatar">' + esc(Narf.inisial(s.nama)) + '</div><span>' + esc(s.nama) + '</span></div></td>' +
-      '<td><span class="siswa-kelompok">' + esc(s.kelompok || '-') + '</span></td>' +
+      '<td><span class="siswa-kelompok">' + esc(s.kelompok || '-') + '</span>' +
+        (s.kelompok ? '<button type="button" class="btn-keluarkan" data-siswa="' + esc(s.user_id) + '" data-nama="' + esc(s.nama) + '" title="Keluarkan dari kelompok">&times;</button>' : '') + '</td>' +
       '<td class="siswa-modul">' + esc(s.modul) + '</td>' +
       '<td><div class="mini-progress-wrap"><span class="mini-progress-persen">' + p + '%</span><div class="mini-progress-bar"><div class="mini-progress-fill" style="width:' + p + '%"></div></div></div></td>' +
       '<td><span class="status-wrap ' + (s.online ? 'status-online' : 'status-offline') + '"><span class="status-dot"></span>' + (s.online ? 'Online' : 'Tidak Aktif') + '</span></td>' +
@@ -165,8 +225,21 @@ async function init() {
       kelasAktif = await Narf.rpc('guru_detail_kelas', { p_kelas_id: id })
       renderTabel('')
       $('search-siswa').addEventListener('input', e => renderTabel(e.target.value))
+      $('siswa-tbody').addEventListener('click', async e => {
+        const b = e.target.closest('.btn-keluarkan')
+        if (!b) return
+        if (!confirm('Keluarkan ' + b.dataset.nama + ' dari kelompoknya?')) return
+        try {
+          await Narf.rpc('narf_guru_keluarkan_siswa', { p_siswa: b.dataset.siswa })
+          Narf.toast('Siswa dikeluarkan dari kelompok.', 'ok')
+          kelasAktif = await Narf.rpc('guru_detail_kelas', { p_kelas_id: kelasAktif.id })
+          renderTabel($('search-siswa').value)
+        } catch (err) { Narf.toast(err.message, 'error') }
+      })
       return
     }
+    muatKodeKelas()
+    muatStatKonten()
     const d = await Narf.rpc('guru_ringkasan')
     $('c-total').textContent = d.total_siswa
     $('c-aktif').textContent = d.aktif_minggu
@@ -180,6 +253,52 @@ async function init() {
     ;($('kelas-grid') || $('siswa-tbody')).innerHTML = '<div class="tabel-kosong">' + esc(e.message) + '</div>'
   }
 }
+/* ---------- ringkasan konten belajar (diam bila gagal) ---------- */
+async function muatStatKonten() {
+  try {
+    const [c, m] = await Promise.all([
+      Narf.query(sb.from('course').select('id')),
+      Narf.query(sb.from('modul').select('id'))
+    ])
+    const el = $('konten-stat')
+    const nc = Array.isArray(c) ? c.length : null, nm = Array.isArray(m) ? m.length : null
+    if (nc == null || nm == null) return
+    el.textContent = nc + ' course \u00b7 ' + nm + ' modul'
+    el.hidden = false
+  } catch (e) { /* abaikan */ }
+}
+/* ---------- kelas saya + kode gabung ---------- */
+async function muatKodeKelas() {
+  const box = $('kode-kelas-list')
+  if (!box) return
+  try {
+    const list = await Narf.rpc('narf_kelas_guru')
+    box.innerHTML = list.length ? list.map(k =>
+      '<div class="kode-kelas-item"><div><div class="kode-nama">' + esc(k.nama_kelas) + '</div><div class="kode-meta">' + esc(k.jumlah_siswa) + ' siswa' +
+      (k.tahun_ajaran ? ' · ' + esc(k.tahun_ajaran) : '') + '</div></div><div class="kode-aksi"><span class="kode-teks">' + esc(k.kode || '-') +
+      '</span><button type="button" class="btn-salin" data-kode="' + esc(k.kode || '') + '">Salin</button></div></div>').join('')
+      : '<div class="tabel-kosong">Belum ada kelas. Klik "Tambah Kelas".</div>'
+  } catch (e) { box.innerHTML = '<div class="tabel-kosong">' + esc(e.message) + '</div>' }
+}
+$('kode-kelas-list').addEventListener('click', async e => {
+  const b = e.target.closest('.btn-salin')
+  if (!b) return
+  try { await navigator.clipboard.writeText(b.dataset.kode); Narf.toast('Kode kelas disalin.', 'ok') }
+  catch (err) { Narf.toast('Salin manual ya: ' + b.dataset.kode, 'error') }
+})
+$('btn-kelas-baru').addEventListener('click', () => { $('dlg-kelas-err').textContent = ''; $('dlg-kelas').showModal() })
+$('dlg-kelas-batal').addEventListener('click', () => $('dlg-kelas').close())
+$('dlg-kelas-form').addEventListener('submit', async e => {
+  e.preventDefault()
+  const btn = $('dlg-kelas-simpan'); btn.disabled = true; $('dlg-kelas-err').textContent = ''
+  try {
+    const k = await Narf.rpc('narf_buat_kelas', { p_nama: $('kelas-nama').value, p_tahun: $('kelas-tahun').value })
+    $('dlg-kelas').close()
+    Narf.toast('Kelas dibuat. Kode gabung: ' + k.kode, 'ok')
+    setTimeout(() => location.reload(), 1200)
+  } catch (err) { $('dlg-kelas-err').textContent = err.message }
+  btn.disabled = false
+})
 init()
 </script>
 </body>

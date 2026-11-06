@@ -33,6 +33,10 @@
 
 <!-- ===== VIEW KATALOG ===== -->
 <div id="view-katalog" class="view active">
+  <div id="banner-pratinjau" class="warning-box" hidden>
+    Mode pratinjau guru: tampilan sama seperti yang dilihat siswa, semua modul terbuka, dan progres tidak disimpan.
+    <a href="kelola.html" style="color:inherit;text-decoration:underline">Kelola modul</a>
+  </div>
   <div id="peringatan-pretest" class="warning-box" hidden>
     Peringatan: Kamu belum menyelesaikan Asesmen Awal. Silakan kembali ke <a href="dashboardsiswa.html" style="color:inherit;text-decoration:underline">Dashboard</a> untuk mengambil pre-test agar materi terbuka!
   </div>
@@ -111,8 +115,22 @@
 
   <div class="project-judul" id="project-judul"></div>
   <div class="project-deskripsi" id="project-deskripsi"></div>
+  <div class="info-kelompok" id="banner-contoh" hidden>Ini <b>contoh proyek</b> yang sudah terisi lengkap, dari masalah, video, rakitan, Business Model Canvas, sampai SWOT. Pelajari alurnya, lalu kerjakan proyekmu sendiri di bagian <b>Proyek Akhir</b>.</div>
 
-  <div class="info-kelompok" id="info-kelompok"></div>
+    <div class="info-kelompok" id="info-kelompok"></div>
+
+  <style>
+    .kel-panel { border: 1px solid var(--border-color); border-radius: 16px; padding: 18px 20px; margin: 14px 0 20px; display: flex; flex-direction: column; gap: 12px; }
+    .kel-judul { font-size: 15px; font-weight: 700; color: var(--fg-solid); }
+    .kel-baris { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .kel-baris input { flex: 1 1 200px; min-width: 0; background: rgba(var(--card-rgb), .06); border: 1px solid var(--border-color); color: var(--fg-solid); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 14px; }
+    .kel-atau, .kel-catatan { font-size: 12px; color: rgba(var(--fg-rgb), .6); }
+    .kel-kode { font-family: ui-monospace, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: 3px; padding: 6px 14px; border: 1px dashed rgba(226,137,95,.7); border-radius: 10px; color: #e2895f; user-select: all; }
+    .kel-anggota { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--border-color); font-size: 14px; color: var(--fg-solid); }
+    .kel-aksi { background: transparent; border: 1px solid var(--border-color); color: var(--fg-solid); border-radius: 8px; padding: 5px 10px; font: inherit; font-size: 12px; cursor: pointer; }
+    .kel-aksi.bahaya { color: #d9675c; border-color: #d9675c; }
+  </style>
+  <div id="panel-kelompok"></div>
 
   <div class="project-section" id="sec-video-demo">
     <h3>
@@ -193,7 +211,7 @@
     <a class="btn-buka-simulasi" href="simulation.html" target="_blank" rel="noopener">Buka Simulasi Lab</a>
   </div>
 
-  <div class="project-section">
+  <div class="project-section" id="sec-kumpul">
     <h3>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
       Kumpulkan Project (Perwakilan Kelompok)
@@ -230,7 +248,8 @@ const ST = {
   batas: {},            // course_id -> batas modul terbuka
   pretest: false,
   curCourse: null, curModul: null, curMateri: null,
-  curView: 'materi',    // 'materi' | 'kuis' | 'jurnal'
+  guru: false,          // true = mode pratinjau guru
+  curView: 'materi',
   jurnalOk: false, kuisOk: false,
   kuis: null,           // { soal: [], jawaban: {} }
   proyekAktif: null, proyekInfo: null
@@ -316,13 +335,24 @@ function kembaliKeKatalog() {
 
 /* ---------- data ---------- */
 async function muatSemua() {
+  if (ST.guru) {
+    const [courses, moduls, materi] = await Promise.all([
+      Narf.query(sb.from('course').select('id,judul,deskripsi').order('judul')),
+      Narf.query(sb.from('modul').select('id,course_id,judul,urutan').order('urutan')),
+      Narf.query(sb.from('materi').select('id,modul_id,judul,tipe,url,konten,urutan').order('urutan'))
+    ])
+    ST.courses = courses; ST.moduls = moduls; ST.materi = materi; ST.proyek = []
+    ST.progModul = {}; ST.done = new Set(); ST.pretest = true
+    courses.forEach(c => { ST.batas[c.id] = 9999 })
+    return
+  }
   const [courses, moduls, materi, prog, done, proyek] = await Promise.all([
     Narf.query(sb.from('course').select('id,judul,deskripsi').order('judul')),
     Narf.query(sb.from('modul').select('id,course_id,judul,urutan').order('urutan')),
     Narf.query(sb.from('materi').select('id,modul_id,judul,tipe,url,konten,urutan').order('urutan')),
     Narf.query(sb.from('progress_modul').select('modul_id,status,persen_selesai').eq('siswa_id', ST.uid)),
     Narf.query(sb.from('progress_materi').select('materi_id').eq('siswa_id', ST.uid)),
-    Narf.query(sb.from('proyek').select('id,judul,deskripsi,video_demo_url,alat_bahan,panduan,bebas').order('judul'))
+    ambilProyek()
   ])
   ST.courses = courses; ST.moduls = moduls; ST.materi = materi; ST.proyek = proyek
   ST.progModul = Object.fromEntries(prog.map(p => [p.modul_id, p]))
@@ -337,6 +367,7 @@ const modulCourse = id => ST.moduls.filter(m => m.course_id === id).sort((a, b) 
 
 /* ---------- KATALOG ---------- */
 function renderKatalog() {
+  $('banner-pratinjau').hidden = !ST.guru
   $('peringatan-pretest').hidden = ST.pretest
   const box = $('katalog-container')
   box.innerHTML = ''
@@ -366,6 +397,7 @@ function renderKatalog() {
     })
   })
 
+  if (ST.guru) return   // pratinjau guru: tanpa Project Akhir
   const secP = document.createElement('div'); secP.className = 'kategori-section'; secP.id = 'sec-proyek'
   const hp = document.createElement('h2'); hp.className = 'kategori-judul'; hp.innerHTML = SVG.layers
   hp.appendChild(document.createTextNode(' Project Akhir'))
@@ -401,9 +433,7 @@ function bukaModul(courseId, modulId, materiId) {
   tampilView('view-belajar')
   renderSidebar()
   renderKonten()
-  // dimuat di awal supaya centang di sidebar langsung akurat
-  muatKuis()
-  muatJurnal()
+  if (!ST.guru) { muatKuis(); muatJurnal() }
 }
 
 /* pindah bagian: materi tertentu / kuis / jurnal */
@@ -447,7 +477,7 @@ function renderSidebar() {
       })
 
       // 2) kuis  3) jurnal (paling terakhir)
-      const extra = [
+        const extra = ST.guru ? [] : [
         { view: 'kuis', icon: SVG.tKuis, nama: 'Kuis Modul ' + m.urutan, ok: ST.kuisOk },
         { view: 'jurnal', icon: SVG.tJurnal, nama: 'Jurnal Refleksi', ok: ST.jurnalOk }
       ]
@@ -488,10 +518,12 @@ function renderMateri() {
   if (!mt) {
     info.innerHTML = ''
     viewer.innerHTML = '<div class="nav-kosong">Belum ada materi di modul ini.</div>'
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'btn-submit-tugas'
-    b.textContent = 'Lanjut ke Kuis →'
-    b.addEventListener('click', () => pilihBagian('kuis'))
-    aksi.appendChild(b)
+      if (!ST.guru) {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'btn-submit-tugas'
+      b.textContent = 'Lanjut ke Kuis →'
+      b.addEventListener('click', () => pilihBagian('kuis'))
+      aksi.appendChild(b)
+    }
     return
   }
 
@@ -506,11 +538,11 @@ function renderMateri() {
   }
 
   // setelah materi terakhir, lanjut ke Kuis (bukan nampilin kuis di bawah materi)
-  const lanjut = () => terakhir ? pilihBagian('kuis') : pilihBagian('materi', list[idx + 1])
-  const sudah = ST.done.has(mt.id)
+  const lanjut = () => terakhir ? (ST.guru ? kembaliKeKatalog() : pilihBagian('kuis')) : pilihBagian('materi', list[idx + 1])
+  const sudah = ST.guru || ST.done.has(mt.id)
   const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn-submit-tugas'
   if (sudah) {
-    btn.textContent = terakhir ? 'Lanjut ke Kuis →' : 'Materi berikutnya →'
+    btn.textContent = terakhir ? (ST.guru ? 'Selesai pratinjau' : 'Lanjut ke Kuis →') : 'Materi berikutnya →'
     btn.addEventListener('click', lanjut)
   } else {
     btn.textContent = terakhir ? 'Tandai Selesai & Lanjut ke Kuis' : 'Tandai Selesai & Lanjut'
@@ -650,6 +682,18 @@ async function selesaikanModul() {
 }
 
 /* ---------- PROJECT AKHIR ---------- */
+// contoh_bmc / contoh_swot (SQL 21) boleh belum ada: kalau kolomnya belum dibuat, pakai pilihan kolom lama
+async function ambilProyek() {
+  const dasar = 'id,judul,deskripsi,video_demo_url,alat_bahan,panduan,bebas'
+  try { return await Narf.query(sb.from('proyek').select(dasar + ',contoh_bmc,contoh_swot').order('judul')) }
+  catch (e) { return await Narf.query(sb.from('proyek').select(dasar).order('judul')) }
+}
+// Mode contoh: BMC & SWOT tampil terisi (hanya baca); kelompok, simpan, dan pengumpulan disembunyikan
+function modeContoh(on) {
+  ;['panel-kelompok', 'info-kelompok', 'btn-simpan-project', 'save-status', 'sec-kumpul'].forEach(i => { const e = $(i); if (e) e.hidden = on })
+  $('banner-contoh').hidden = !on
+  if (!on) [...BMC, ...SWOT].forEach(i => { $(i).style.height = '' })
+}
 const BMC = ['bmc-partners', 'bmc-activities', 'bmc-value', 'bmc-relationship', 'bmc-segments', 'bmc-resources', 'bmc-channels', 'bmc-cost', 'bmc-revenue']
 const SWOT = ['swot-s', 'swot-w', 'swot-o', 'swot-t']
 
@@ -678,12 +722,62 @@ async function bukaProyek(id) {
   $('project-guide-list').innerHTML = (p.panduan || []).map(t => '<li>' + esc(t) + '</li>').join('') || '<li>Belum ada panduan.</li>'
 
   ;[...BMC, ...SWOT].forEach(i => { $(i).value = '' })
+  const contoh = !bebas && p.contoh_bmc && Object.keys(p.contoh_bmc).length > 0
+  modeContoh(!!contoh)
+  if (contoh) {
+    ;[...BMC].forEach(i => { $(i).value = p.contoh_bmc[i] || '' })
+    ;[...SWOT].forEach(i => { $(i).value = (p.contoh_swot || {})[i] || '' })
+    ;[...BMC, ...SWOT].forEach(i => { const t = $(i); t.disabled = true; t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px' })
+    return
+  }
   const ik = $('info-kelompok'); ik.textContent = 'Memuat data kelompok...'
   try {
     const d = await Narf.rpc('proyek_saya', { p_proyek_id: p.id })
     ST.proyekInfo = d
     renderStatusProyek(d)
   } catch (e) { ik.textContent = e.message }
+}
+
+/* ---------- KELOMPOK (dibentuk siswa sendiri) ---------- */
+async function muatUlangSetelahKelompok() {
+  if (!ST.proyekAktif) return
+  const d = await Narf.rpc('proyek_saya', { p_proyek_id: ST.proyekAktif.id })
+  ST.proyekInfo = d
+  renderStatusProyek(d)
+}
+async function aksiKelompok(fn, pesan) {
+  try { await fn(); if (pesan) Narf.toast(pesan, 'ok'); await muatUlangSetelahKelompok() }
+  catch (e) { Narf.toast(e.message, 'error') }
+}
+async function renderPanelKelompok() {
+  const box = $('panel-kelompok')
+  if (!box) return
+  let k = null
+  try { k = await Narf.rpc('narf_kelompok_saya') }
+  catch (e) { box.innerHTML = '<div class="kel-panel">' + esc(e.message) + '</div>'; return }
+  if (!k) {
+    box.innerHTML = '<div class="kel-panel"><div class="kel-judul">Bentuk kelompokmu</div>' +
+      '<div class="kel-baris"><input id="kel-nama" maxlength="40" placeholder="Nama kelompok baru"><button class="btn-submit-tugas" id="kel-buat" type="button">Buat Kelompok</button></div>' +
+      '<div class="kel-atau">atau gabung ke kelompok temanmu</div>' +
+      '<div class="kel-baris"><input id="kel-kode" maxlength="12" placeholder="Kode undangan" style="text-transform:uppercase"><button class="btn-submit-tugas" id="kel-gabung" type="button">Gabung</button></div>' +
+      '<div class="kel-catatan">Satu kelompok maksimal 5 anggota. Pembuat kelompok menjadi perwakilan yang mengumpulkan project.</div></div>'
+    $('kel-buat').onclick = () => aksiKelompok(() => Narf.rpc('narf_buat_kelompok', { p_nama: $('kel-nama').value }), 'Kelompok dibuat. Bagikan kodenya ke temanmu.')
+    $('kel-gabung').onclick = () => aksiKelompok(() => Narf.rpc('narf_gabung_kelompok', { p_kode: $('kel-kode').value }), 'Berhasil bergabung ke kelompok.')
+    return
+  }
+  const anggota = (k.anggota || []).map(a =>
+    '<div class="kel-anggota"><span>' + esc(a.nama) + (a.perwakilan ? ' <b style="color:#e2895f">(perwakilan)</b>' : '') + '</span>' +
+    (k.saya_perwakilan && !a.perwakilan && !k.terkunci ? '<button class="kel-aksi" type="button" data-wakil="' + esc(a.id) + '">Jadikan perwakilan</button>' : '') + '</div>').join('')
+  box.innerHTML = '<div class="kel-panel"><div class="kel-judul">' + esc(k.nama) + ' · ' + esc((k.anggota || []).length) + '/' + esc(k.maks) + ' anggota</div>' +
+    (k.terkunci ? '<div class="kel-catatan">Project sudah dikumpulkan, kelompok terkunci.</div>'
+      : '<div class="kel-baris"><span class="kel-atau">Kode undangan:</span><span class="kel-kode">' + esc(k.kode || '-') + '</span><button class="kel-aksi" id="kel-salin" type="button">Salin</button></div>') +
+    anggota +
+    (k.terkunci ? '' : '<div><button class="kel-aksi bahaya" id="kel-keluar" type="button">Keluar dari kelompok</button></div>') + '</div>'
+  const salin = $('kel-salin')
+  if (salin) salin.onclick = async () => { try { await navigator.clipboard.writeText(k.kode); Narf.toast('Kode disalin.', 'ok') } catch (e) { Narf.toast('Salin manual ya: ' + k.kode, 'error') } }
+  const keluar = $('kel-keluar')
+  if (keluar) keluar.onclick = () => { if (confirm('Keluar dari kelompok ' + k.nama + '?')) aksiKelompok(() => Narf.rpc('narf_keluar_kelompok'), 'Kamu keluar dari kelompok.') }
+  box.querySelectorAll('[data-wakil]').forEach(b => { b.onclick = () => aksiKelompok(() => Narf.rpc('narf_alihkan_perwakilan', { p_siswa: b.dataset.wakil }), 'Perwakilan dialihkan.') })
 }
 
 const RANCANG = ['rc-judul', 'rc-deskripsi', 'rc-alat', 'rc-panduan']
@@ -702,11 +796,12 @@ function setFormProyek(bolehIsi, bolehKumpul) {
 }
 
 function renderStatusProyek(d) {
+  renderPanelKelompok()
   const ik = $('info-kelompok'), st = $('status-proyek')
   st.hidden = true; st.className = 'status-proyek'
   if (!d || !d.kelompok) {
     ik.className = 'info-kelompok peringatan'
-    ik.textContent = 'Kamu belum masuk kelompok. Hubungi gurumu untuk dimasukkan ke kelompok sebelum mengerjakan project.'
+    ik.textContent = 'Kamu belum masuk kelompok. Buat kelompok baru atau gabung pakai kode dari temanmu di bawah ini sebelum mengerjakan project.'
     setFormProyek(false, false)
     return
   }
@@ -787,7 +882,16 @@ async function kumpulkanProject() {
 /* ---------- INIT ---------- */
 async function init() {
   try {
-    const profil = await Narf.guard('siswa')
+    const profil = await Narf.guard('semua')
+    ST.guru = profil.role !== 'siswa'
+    if (ST.guru) {
+      document.querySelector('.menu').innerHTML =
+        '<a href="dashboardguru.html" class="menu-item">DASHBOARD</a>' +
+        '<a href="class.html" class="menu-item active">CLASS</a>' +
+        '<a href="grading.html" class="menu-item">GRADING</a>' +
+        '<a href="monitoring.html" class="menu-item">MONITORING</a>'
+      ;['nav-progress', 'nav-notif'].forEach(id => { const b = $(id); if (b) b.remove() })
+    }
     NarfNav.init(profil)
     const { data: { session } } = await sb.auth.getSession()
     ST.uid = session.user.id
@@ -796,7 +900,7 @@ async function init() {
     const q = new URLSearchParams(location.search)
     if (q.get('tab') === 'proyek' && ST.proyek.length === 1) bukaProyek(ST.proyek[0].id)
     else if (q.get('tab') === 'proyek' && ST.proyek.length > 1) { const s = $('sec-proyek'); if (s) s.scrollIntoView() }
-    else if (q.get('course') && q.get('modul')) bukaModul(q.get('course'), q.get('modul'))
+    else if (q.get('course') && q.get('modul')) bukaModul(q.get('course'), q.get('modul'), q.get('materi') || undefined)
     else if (q.get('course')) {
       const c = q.get('course'); const h = ST.batas[c] || 0
       const m = modulCourse(c).find(x => x.urutan === Math.max(1, h)) || modulCourse(c)[0]
