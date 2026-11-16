@@ -911,6 +911,7 @@
       $('profil-email').textContent = 'Masuk sebagai ' + email;
       try {
         const st = await Narf.rpc('status_guru_menunggu');
+        if (st && st.otomatis) { location.href = Narf.HOME.guru; return; }
         if (st && st.menunggu) {
           $('menunggu-sapaan').textContent = st.nama || email;
           if (st.terkunci) fb('verif-feedback', 'Terlalu banyak percobaan. Hubungi admin NARFKIT untuk membuka kembali.');
